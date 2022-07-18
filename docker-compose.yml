@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    node-app:
+        build: 
+            context: .
+            dockerfile: DockerFile
+        image: mimr7
+        ports:
+            - '${SERVER_PORT:-3000}:${SERVER_PORT}'
+        environment:
+            - DB_URL=postgres://faiz:root@127.0.0.1:5432/mimr7
+
+        # volumes:
+        #     - .:/usr/src/node-app
