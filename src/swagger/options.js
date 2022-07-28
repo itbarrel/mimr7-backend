@@ -1,3 +1,3 @@
 module.exports = {
-  explorer: true,
-};
+    explorer: true,
+}

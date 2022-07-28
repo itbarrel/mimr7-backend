@@ -1,21 +1,26 @@
-const express = require('express');
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
-const accountRoute = require('./accounts');
-const userRoute = require('./users');
+const authRoute = require('./auth')
+const accountRoute = require('./accounts')
+const roleRoute = require('./roles')
+const userRoute = require('./users')
+const deviceRoute = require('./devices')
 
-
-const verifyAccount = require('../../middlewares/verifyAccount');
+const verifyToken = require('../../middlewares/verifyToken')
 
 const routes = [
-  { path: '/accounts', routes: [ accountRoute] },
-  { path: '/users', routes: [ verifyAccount, userRoute ] },
+    { path: '/auth', routes: [authRoute] },
+    { path: '/accounts', routes: [accountRoute] },
+    { path: '/roles', routes: [verifyToken, roleRoute] },
+    { path: '/users', routes: [verifyToken, userRoute] },
+    { path: '/devices', routes: [verifyToken, deviceRoute] },
 
-];
+]
 
 routes.forEach((route) => {
-  router.use(route.path, ...route.routes);
-});
+    router.use(route.path, ...route.routes)
+})
 
-module.exports = router;
+module.exports = router

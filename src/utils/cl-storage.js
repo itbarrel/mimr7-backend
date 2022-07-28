@@ -1,7 +1,7 @@
-const { createNamespace, getNamespace } = require('cls-hooked');
+const { createNamespace, getNamespace } = require('cls-hooked')
 
-createNamespace('dynamicForm');
-const storage = getNamespace('dynamicForm');
-storage.run(() => { });
+createNamespace('mimr7')
+const storage = getNamespace('mimr7')
+storage.run(() => { })
 
-module.exports = storage;
+module.exports = storage

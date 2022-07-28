@@ -1,1 +1,1 @@
-module.exports.paginate = require('./paginate');
+module.exports.paginate = require('./paginate')
