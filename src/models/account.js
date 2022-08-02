@@ -10,13 +10,19 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Account.hasMany(models.User, {
                 foreignKey: {
+                    allowNull: true,
+                },
+                onDelete: 'cascade',
+            })
+            Account.hasMany(models.Organization, {
+                foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Account.hasMany(models.Device, {
+            Account.hasMany(models.Role, {
                 foreignKey: {
-                    allowNull: false,
+                    allowNull: true,
                 },
                 onDelete: 'cascade',
             })

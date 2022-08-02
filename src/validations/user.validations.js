@@ -5,6 +5,7 @@ const userObj = {
         userName: Joi.string().required(),
         AccountId: Joi.string(),
         RoleId: Joi.string(),
+        OrganizationId: Joi.string(),
         password: Joi.string().required(),
         firstName: Joi.string(),
         email: Joi.string(),

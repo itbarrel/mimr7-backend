@@ -16,7 +16,7 @@ const login = async (req, res, next) => {
 
                 if (role) {
                     const decodeObj = {
-                        id: user.id, email: user.email, userName: user.userName, accountId: user.AccountId,
+                        id: user.id, email: user.email, userName: user.userName, accountId: user.AccountId, role: role.name
                     }
 
                     const jwtToken = jwt.sign(decodeObj, config.jwt.secret, { expiresIn: '2h' })

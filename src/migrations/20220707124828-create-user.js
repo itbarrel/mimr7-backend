@@ -80,7 +80,7 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
+                allowNull: true,
                 references: {
                     model: 'accounts',
                     key: 'id',
@@ -90,7 +90,7 @@ module.exports = {
             },
             OrganizationId: {
                 type: Sequelize.UUID,
-                allowNull: false,
+                allowNull: true,
                 references: {
                     model: 'organizations',
                     key: 'id',

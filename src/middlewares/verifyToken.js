@@ -7,6 +7,7 @@ const badErrors = ['JsonWebTokenError', 'TokenExpiredError']
 const verifyToken = async (req, res, next) => {
     storage.run(async () => {
         try {
+            const roles = ['admin', 'manager']
             const token = req.body.token
                 || req.headers.token
                 || req.query.token
@@ -18,9 +19,17 @@ const verifyToken = async (req, res, next) => {
             }
             const decoded = jwt.verify(token, config.jwt.secret)
             if (decoded) {
-                storage.set('decoded', decoded)
+                const { role } = decoded
+                if (role === 'SuperAdmin') {
+                    storage.set('decoded', decoded)
+                    next()
+                } else if (role === roles[0] || role === roles[1]) {
+                    storage.set('decoded', decoded)
+                    next()
+                } else {
+                    return res.status(401).send({ message: "Permission Not Granted" })
+                }
             }
-            next()
         } catch (error) {
             if (error && badErrors.includes(error.name)) {
                 return res.status(401).send({ message: error.message })

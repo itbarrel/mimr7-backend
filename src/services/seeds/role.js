@@ -1,13 +1,13 @@
 const { RoleService } = require('../index')
 
-const AdminRole = {
-    name: 'Admin',
-    value: 'admin',
+const SuperAdminRole = {
+    name: 'SuperAdmin',
+    value: 'superadmin',
     default: true,
 }
 
-const create = async () => RoleService.create(AdminRole)
+const create = async () => RoleService.create(SuperAdminRole)
 
-const destroy = async () => RoleService.delete(AdminRole)
+const destroy = async () => RoleService.delete(SuperAdminRole)
 
 module.exports = { create, destroy }

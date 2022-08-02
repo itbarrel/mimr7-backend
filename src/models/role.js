@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            Role.belongsTo(models.Account, {
+                foreignKey: {
+                    allowNull: true,
+                },
+                onDelete: 'cascade',
+            })
         }
     }
 

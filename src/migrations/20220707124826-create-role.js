@@ -17,6 +17,16 @@ module.exports = {
                 allowNull: false,
                 unique: true,
             },
+            AccountId: {
+                type: Sequelize.UUID,
+                allowNull: true,
+                references: {
+                    model: 'accounts',
+                    key: 'id',
+                },
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+            },
             default: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
