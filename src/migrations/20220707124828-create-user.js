@@ -71,6 +71,9 @@ module.exports = {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
             },
+            type: {
+                type: Sequelize.STRING,
+            },
             active: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: true,
@@ -80,6 +83,16 @@ module.exports = {
                 allowNull: false,
                 references: {
                     model: 'accounts',
+                    key: 'id',
+                },
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+            },
+            OrganizationId: {
+                type: Sequelize.UUID,
+                allowNull: false,
+                references: {
+                    model: 'organizations',
                     key: 'id',
                 },
                 onDelete: 'SET NULL',
