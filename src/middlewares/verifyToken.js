@@ -20,10 +20,7 @@ const verifyToken = async (req, res, next) => {
             const decoded = jwt.verify(token, config.jwt.secret)
             if (decoded) {
                 const { role } = decoded
-                if (role === 'SuperAdmin') {
-                    storage.set('decoded', decoded)
-                    next()
-                } else if (role === roles[0] || role === roles[1]) {
+                if (role === 'SuperAdmin' || role === roles[0] || role === roles[1]) {
                     storage.set('decoded', decoded)
                     next()
                 } else {
