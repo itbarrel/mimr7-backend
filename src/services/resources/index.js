@@ -3,6 +3,7 @@ const AccountService = require('./account')
 const RoleService = require('./role')
 const UserService = require('./user')
 const OrganizationService = require('./organization')
+const CollectionService = require('./collection')
 
 module.exports = {
     ResourceService,
@@ -10,4 +11,5 @@ module.exports = {
     UserService,
     RoleService,
     OrganizationService,
+    CollectionService,
 }

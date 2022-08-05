@@ -7,6 +7,7 @@ const accountRoute = require('./accounts')
 const roleRoute = require('./roles')
 const userRoute = require('./users')
 const organizationRoute = require('./organizations')
+const collectionRoute = require('./collections')
 
 const verifyToken = require('../../middlewares/verifyToken')
 
@@ -16,6 +17,7 @@ const routes = [
     { path: '/roles', routes: [verifyToken, roleRoute] },
     { path: '/users', routes: [verifyToken, userRoute] },
     { path: '/organizations', routes: [verifyToken, organizationRoute] },
+    { path: '/collections', routes: [verifyToken, collectionRoute] },
 
 ]
 
