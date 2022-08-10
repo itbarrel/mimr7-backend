@@ -10,6 +10,7 @@ const authLimiter = require('./src/middlewares/rateLimiter')
 const routes = require('./src/routes')
 const { errorConverter, errorHandler } = require('./src/middlewares/error')
 const ApiError = require('./src/utils/ApiError')
+
 const app = express()
 
 if (config.env !== 'test') {

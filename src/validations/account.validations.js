@@ -13,6 +13,9 @@ const accountObj = {
         category_header: Joi.string(),
         messages_font_size: Joi.string(),
         messages_font_family: Joi.string(),
+        organization: Joi.object(),
+        admin: Joi.object(),
+
     }),
 }
 

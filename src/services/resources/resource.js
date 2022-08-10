@@ -1,9 +1,15 @@
+const storage = require('../../utils/cl-storage')
+
 class ResourceService {
     constructor(model) {
         this.model = model
     }
 
     async all(query = {}, offset = 1, limit = 20) {
+        const { accountId, role } = storage.get('decoded')
+        if (role !== 'SuperAdmin') {
+            query.AccountId = accountId
+        }
         const options = {
             // offset: offset * (limit + 1),
             where: query,

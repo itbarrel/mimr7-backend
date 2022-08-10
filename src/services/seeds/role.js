@@ -1,13 +1,21 @@
 const { RoleService } = require('../index')
 
-const SuperAdminRole = {
+const Roles = [{
     name: 'SuperAdmin',
-    value: 'superadmin',
     default: true,
-}
+}, {
+    name: 'Admin',
+    default: true,
+},
+{
+    name: 'Manager',
+    default: true,
+}]
 
-const create = async () => RoleService.create(SuperAdminRole)
+const create = async () => Promise.all(Roles.map(async (role) => {
+    await RoleService.create(role)
+}))
 
-const destroy = async () => RoleService.delete(SuperAdminRole)
+const destroy = async () => RoleService.delete()
 
 module.exports = { create, destroy }
