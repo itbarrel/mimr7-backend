@@ -4,6 +4,7 @@ const RoleService = require('./role')
 const UserService = require('./user')
 const OrganizationService = require('./organization')
 const CollectionService = require('./collection')
+const CollectionLibraryService = require('./collectionLibrary')
 
 module.exports = {
     ResourceService,
@@ -12,4 +13,5 @@ module.exports = {
     RoleService,
     OrganizationService,
     CollectionService,
+    CollectionLibraryService,
 }

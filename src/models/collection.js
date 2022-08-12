@@ -18,6 +18,15 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            Collection.hasMany(models.CollectionLibrary, {
+                foreignKey: 'parentId',
+                constraints: false,
+                onDelete: 'cascade',
+                scope: {
+                    parentType: 'collectionLibrary',
+                },
+
+            })
         }
     }
     Collection.init({
