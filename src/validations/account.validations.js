@@ -16,7 +16,7 @@ const accountObj = {
         organization: Joi.object(),
         admin: Joi.object(),
 
-    }),
+    }).options({ allowUnknown: true }),
 }
 
 module.exports = {

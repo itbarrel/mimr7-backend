@@ -6,7 +6,7 @@ const roleObj = {
         value: Joi.string(),
         AccountId: Joi.string(),
 
-    }),
+    }).options({ allowUnknown: true }),
 }
 
 module.exports = {

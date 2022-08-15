@@ -14,7 +14,7 @@ const collectionLibraryObj = {
         tags: Joi.string(),
         active: Joi.boolean(),
 
-    }),
+    }).options({ allowUnknown: true }),
 }
 
 module.exports = {
