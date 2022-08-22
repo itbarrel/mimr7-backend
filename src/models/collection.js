@@ -27,6 +27,13 @@ module.exports = (sequelize, DataTypes) => {
                 },
 
             })
+            Collection.hasMany(models.Highlight, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'cascade',
+
+            })
         }
     }
     Collection.init({
