@@ -12,6 +12,7 @@ class UserService extends ResourceService {
         userObj.RoleId = role.id
 
         const user = await this.model.create(userObj)
+        await user.signUpEmail(userObj.password)
         return user
     }
 }
