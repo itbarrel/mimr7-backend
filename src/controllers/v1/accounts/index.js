@@ -1,4 +1,4 @@
-const { AccountService } = require('../../../services/resources')
+const { AccountService, RoleService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -25,7 +25,9 @@ const show = async (req, res, next) => {
     try {
         const { id } = req.params
         const account = await AccountService.findById(id)
-        res.send({ account })
+        const role = await RoleService.findByQuery({ name: 'Admin' })
+        const admin = await account.getUsers({ where: { RoleId: role.id } })
+        res.send({ account, admin })
     } catch (error) {
         next(error)
     }
