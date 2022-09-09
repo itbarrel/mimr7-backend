@@ -1,4 +1,5 @@
 const storage = require('../../utils/cl-storage')
+const { Op } = require("sequelize");
 
 class ResourceService {
     constructor(model) {
@@ -12,6 +13,9 @@ class ResourceService {
         }
         const sorted = []
         Object.keys(sort).map((key) => sorted.push([key, sort[key]]))
+        if (query.name) {
+            query.name = { [Op.iLike]: `%${query.name}%` }
+        }
         const options = {
             // offset: offset * (limit + 1),
             where: query,
