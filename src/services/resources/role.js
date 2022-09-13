@@ -4,16 +4,23 @@ const ResourceService = require('./resource')
 class RoleService extends ResourceService {
     constructor() {
         super(models.Role)
+        this.mainRoles = [
+            {
+                name: 'Admin',
+                default: true,
+            },
+            {
+                name: 'Manager',
+                default: true,
+            },
+        ]
     }
 
-    async all(query = {}, offset = 1, limit = 20) {
-        const options = {
-            // offset: offset * (limit + 1),
-            where: query,
-            page: offset,
-            paginate: limit,
-        }
-        return this.model.paginate(options)
+    async createDefaultRolesFor(id) {
+        return Promise.all(this.mainRoles.map(async (role) => {
+            role.AccountId = id
+            await this.model.create(role)
+        }))
     }
 }
 

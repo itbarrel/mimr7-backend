@@ -2,6 +2,7 @@ const models = require('../../models')
 const ResourceService = require('./resource')
 const UserService = require('./user')
 const OrganizationService = require('./organization')
+const RoleService = require('./role')
 
 class AccountService extends ResourceService {
     constructor() {
@@ -13,6 +14,7 @@ class AccountService extends ResourceService {
             const { admin, organization, ...accountObj } = obj
             const account = await this.model.create(accountObj)
             if (account) {
+                await RoleService.createDefaultRolesFor(account.id)
                 if (organization !== '' && organization !== null) {
                     organization.AccountId = account.id
 
