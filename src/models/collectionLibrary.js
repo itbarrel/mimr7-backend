@@ -4,39 +4,20 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class Collection extends Model {
+    class CollectionLibrary extends Model {
         static associate(models) {
-            Collection.belongsTo(models.Account, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
-            })
-            Collection.belongsTo(models.User, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
-            })
-            Collection.hasMany(models.CollectionLibrary, {
+            CollectionLibrary.belongsTo(models.Collection, {
                 foreignKey: 'parentId',
-                constraints: false,
-                onDelete: 'cascade',
-                scope: {
-                    parentType: 'collectionLibrary',
-                },
-
             })
-            Collection.hasMany(models.Highlight, {
+            CollectionLibrary.belongsTo(models.Account, {
                 foreignKey: {
-                    allowNull: false,
+                    allowNull: true,
                 },
                 onDelete: 'cascade',
-
             })
         }
     }
-    Collection.init({
+    CollectionLibrary.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -45,23 +26,37 @@ module.exports = (sequelize, DataTypes) => {
         title: {
             type: DataTypes.TEXT,
         },
-        text: {
-            type: DataTypes.TEXT,
-        },
         description: {
             type: DataTypes.TEXT,
         },
-        private: {
-            type: DataTypes.BOOLEAN,
+        link: {
+            type: DataTypes.STRING,
         },
-        saleable: {
-            type: DataTypes.BOOLEAN,
+        filename: {
+            type: DataTypes.STRING,
+        },
+        url: {
+            type: DataTypes.STRING,
         },
         type: {
             type: DataTypes.STRING,
         },
-        kind: {
+        mimetype: {
             type: DataTypes.STRING,
+        },
+        tags: {
+            type: DataTypes.STRING,
+        },
+        parentId: {
+            type: DataTypes.UUID,
+        },
+        parentType: {
+            type: DataTypes.STRING,
+            defaultValue: 'collectionLibrary',
+        },
+        active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
         },
         createdAt: {
             allowNull: false,
@@ -77,10 +72,16 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Collection',
-        tableName: 'collections',
+        modelName: 'CollectionLibrary',
+        tableName: 'libraries',
+        defaultScope: {
+            where: {
+                parentType: 'collectionLibrary',
+            },
+        },
         paranoid: true,
     })
-    sequelizePaginate.paginate(Collection)
-    return Collection
+    sequelizePaginate.paginate(CollectionLibrary)
+
+    return CollectionLibrary
 }

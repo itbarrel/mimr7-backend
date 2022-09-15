@@ -1,14 +1,14 @@
 const Joi = require('joi')
 
-const roleObj = {
+const highlightObj = {
     body: Joi.object().keys({
-        name: Joi.string().required(),
-        value: Joi.string(),
+        content: Joi.string().required(),
         AccountId: Joi.string(),
-
+        CollectionId: Joi.string(),
+        description: Joi.string(),
     }).options({ allowUnknown: true }),
 }
 
 module.exports = {
-    roleObj,
+    highlightObj,
 }
