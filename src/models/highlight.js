@@ -18,6 +18,15 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            Highlight.hasMany(models.HighlightLibrary, {
+                foreignKey: 'parentId',
+                constraints: false,
+                onDelete: 'cascade',
+                scope: {
+                    parentType: 'highlightLibrary',
+                },
+
+            })
         }
     }
     Highlight.init({
