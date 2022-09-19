@@ -122,13 +122,13 @@ module.exports = (sequelize, DataTypes) => {
         classMethods: {
             active: async () => { },
         },
-        indexes: [
-            {
-                unique: true,
-                name: 'unique_user_name',
-                fields: [sequelize.fn('lower', sequelize.col('userName'))],
-            },
-        ],
+        // indexes: [
+        //     {
+        //         unique: true,
+        //         name: 'unique_user_name',
+        //         fields: [sequelize.fn('lower', sequelize.col('userName'))],
+        //     },
+        // ],
         hooks: {
             beforeCreate: async (user) => {
                 if (user.password) {

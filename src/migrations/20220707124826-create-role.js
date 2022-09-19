@@ -10,12 +10,10 @@ module.exports = {
             name: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                // unique: true,
             },
             value: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                // unique: true,
             },
             AccountId: {
                 type: Sequelize.UUID,
