@@ -1,4 +1,3 @@
-const { Op } = require('sequelize')
 const storage = require('../../utils/cl-storage')
 
 class ResourceService {
@@ -13,7 +12,6 @@ class ResourceService {
         }
         const sorted = []
         Object.keys(sort).map((key) => sorted.push([key, sort[key]]))
-        query.name && query.name !== '' ? query.name = { [Op.iLike]: `%${query.name}%` } : delete query.name
         const options = {
             // offset: offset * (limit + 1),
             where: query,

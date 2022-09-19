@@ -2,7 +2,9 @@ const { CollectionService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
-        const { offset, limit, sort, ...query } = req.query
+        const {
+            offset, limit, sort, ...query
+        } = req.query
 
         const { docs, pages, total } = await CollectionService.all(query, offset, limit, sort)
 
