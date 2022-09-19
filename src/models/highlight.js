@@ -4,64 +4,42 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class Collection extends Model {
+    class Highlight extends Model {
         static associate(models) {
-            Collection.belongsTo(models.Account, {
+            Highlight.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Collection.belongsTo(models.User, {
+            Highlight.belongsTo(models.Collection, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Collection.hasMany(models.CollectionLibrary, {
+            Highlight.hasMany(models.HighlightLibrary, {
                 foreignKey: 'parentId',
                 constraints: false,
                 onDelete: 'cascade',
                 scope: {
-                    parentType: 'collectionLibrary',
+                    parentType: 'highlightLibrary',
                 },
-
-            })
-            Collection.hasMany(models.Highlight, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
 
             })
         }
     }
-    Collection.init({
+    Highlight.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        title: {
-            type: DataTypes.TEXT,
-        },
-        text: {
+        content: {
             type: DataTypes.TEXT,
         },
         description: {
             type: DataTypes.TEXT,
-        },
-        private: {
-            type: DataTypes.BOOLEAN,
-        },
-        saleable: {
-            type: DataTypes.BOOLEAN,
-        },
-        type: {
-            type: DataTypes.STRING,
-        },
-        kind: {
-            type: DataTypes.STRING,
         },
         createdAt: {
             allowNull: false,
@@ -77,10 +55,12 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Collection',
-        tableName: 'collections',
+        modelName: 'Highlight',
+        tableName: 'highlights',
         paranoid: true,
+
     })
-    sequelizePaginate.paginate(Collection)
-    return Collection
+    sequelizePaginate.paginate(Highlight)
+
+    return Highlight
 }

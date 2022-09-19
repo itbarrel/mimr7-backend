@@ -12,7 +12,7 @@ const userObj = {
         active: Joi.boolean(),
         status: Joi.boolean(),
 
-    }),
+    }).options({ allowUnknown: true }),
 }
 
 module.exports = {

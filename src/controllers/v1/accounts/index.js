@@ -3,7 +3,8 @@ const { AccountService, RoleService } = require('../../../services/resources')
 const all = async (req, res, next) => {
     try {
         const {
-            offset, limit, sort, ...query } = req.query
+            offset, limit, sort, ...query
+        } = req.query
         const { docs, pages, total } = await AccountService.all(query, offset, limit, sort)
 
         res.send({ data: docs, pages, total })

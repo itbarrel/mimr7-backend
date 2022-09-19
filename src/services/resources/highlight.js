@@ -2,15 +2,15 @@ const { Op } = require('sequelize')
 const models = require('../../models')
 const ResourceService = require('./resource')
 
-class CollectionService extends ResourceService {
+class HighlightService extends ResourceService {
     constructor() {
-        super(models.Collection)
+        super(models.Highlight)
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
-        query.title && query.title !== '' ? query.title = { [Op.iLike]: `%${query.title}%` } : delete query.title
+        query.content && query.content !== '' ? query.content = { [Op.iLike]: `%${query.content}%` } : delete query.content
         return await super.all(query, offset, limit, sort)
     }
 }
 
-module.exports = new CollectionService()
+module.exports = new HighlightService()
