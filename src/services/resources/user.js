@@ -9,7 +9,7 @@ class UserService extends ResourceService {
     }
 
     async createDefaultUsersFor(userObj) {
-        const role = await RoleService.findByQuery({ value: 'admin' })
+        const role = await RoleService.findByQuery({ value: 'admin', AccountId: userObj.AccountId })
         userObj.RoleId = role.id
 
         const user = await this.model.create(userObj)
