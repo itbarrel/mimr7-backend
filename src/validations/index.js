@@ -8,3 +8,4 @@ module.exports.collectionLibraryValidations = require('./collectionLibrary.valid
 module.exports.organizationValidations = require('./organization.validations')
 module.exports.highlightValidations = require('./highlight.validations')
 module.exports.highlightLibraryValidations = require('./highlightLibrary.validations')
+module.exports.playerValidations = require('./player.validations')
