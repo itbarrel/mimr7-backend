@@ -41,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
         description: {
             type: DataTypes.TEXT,
         },
+        order: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
         createdAt: {
             allowNull: false,
             type: DataTypes.DATE,

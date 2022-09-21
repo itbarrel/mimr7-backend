@@ -33,6 +33,9 @@ module.exports = {
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             },
+            order: {
+                type: Sequelize.INTEGER,
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
