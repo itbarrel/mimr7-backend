@@ -1,48 +1,47 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('players', {
+        await queryInterface.createTable('locations', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDv4,
             },
-            firstName: {
+            address1: {
                 type: Sequelize.STRING,
             },
-            lastName: {
+            address2: {
                 type: Sequelize.STRING,
             },
-            organizationName: {
+            address3: {
                 type: Sequelize.STRING,
             },
-            mobilePhone: {
+            city: {
+                type: Sequelize.STRING,
+            },
+            state: {
                 type: Sequelize.STRING,
             },
             country: {
                 type: Sequelize.STRING,
             },
-            active: {
-                type: Sequelize.BOOLEAN,
-            },
-            email: {
+            mobilePhone: {
                 type: Sequelize.STRING,
+            },
+            officePhone: {
+                type: Sequelize.STRING,
+            },
+            type: {
+                type: Sequelize.STRING,
+            },
+            location: {
+                type: Sequelize.JSON,
             },
             AccountId: {
                 type: Sequelize.UUID,
                 allowNull: false,
                 references: {
                     model: 'accounts',
-                    key: 'id',
-                },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
-            },
-            UserId: {
-                type: Sequelize.UUID,
-                allowNull: false,
-                references: {
-                    model: 'users',
                     key: 'id',
                 },
                 onDelete: 'SET NULL',
@@ -63,6 +62,6 @@ module.exports = {
         })
     },
     down: async (queryInterface) => {
-        await queryInterface.dropTable('players')
+        await queryInterface.dropTable('locations')
     },
 }

@@ -4,15 +4,9 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class Player extends Model {
+    class Location extends Model {
         static associate(models) {
-            Player.belongsTo(models.Account, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
-            })
-            Player.belongsTo(models.User, {
+            Location.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -20,32 +14,41 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    Player.init({
+    Location.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        firstName: {
+        address1: {
             type: DataTypes.STRING,
         },
-        lastName: {
+        address2: {
             type: DataTypes.STRING,
         },
-        organizationName: {
+        address3: {
             type: DataTypes.STRING,
         },
-        mobilePhone: {
+        city: {
+            type: DataTypes.STRING,
+        },
+        state: {
             type: DataTypes.STRING,
         },
         country: {
             type: DataTypes.STRING,
         },
-        email: {
+        mobilePhone: {
             type: DataTypes.STRING,
         },
-        active: {
-            type: DataTypes.BOOLEAN,
+        officePhone: {
+            type: DataTypes.STRING,
+        },
+        type: {
+            type: DataTypes.STRING,
+        },
+        location: {
+            type: DataTypes.JSON,
         },
         createdAt: {
             allowNull: false,
@@ -61,10 +64,11 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Player',
-        tableName: 'players',
+        modelName: 'Location',
+        tableName: 'locations',
         paranoid: true,
     })
-    sequelizePaginate.paginate(Player)
-    return Player
+    sequelizePaginate.paginate(Location)
+
+    return Location
 }

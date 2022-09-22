@@ -8,6 +8,7 @@ const CollectionLibraryService = require('./collectionLibrary')
 const HighlightService = require('./highlight')
 const HighlightLibraryService = require('./highlightLibrary')
 const PlayerService = require('./player')
+const LocationService = require('./location')
 
 module.exports = {
     ResourceService,
@@ -20,4 +21,5 @@ module.exports = {
     HighlightService,
     HighlightLibraryService,
     PlayerService,
+    LocationService,
 }
