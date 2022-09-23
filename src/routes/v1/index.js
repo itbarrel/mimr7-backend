@@ -13,6 +13,7 @@ const highlightRoute = require('./highlights')
 const highlightLibrariesRoute = require('./highlightLibraries')
 const playersRoute = require('./players')
 const locationsRoute = require('./locations')
+const messageRoute = require('./messages')
 
 const verifyToken = require('../../middlewares/verifyToken')
 
@@ -28,6 +29,7 @@ const routes = [
     { path: '/highlightLibraries', routes: [verifyToken, highlightLibrariesRoute] },
     { path: '/players', routes: [verifyToken, playersRoute] },
     { path: '/locations', routes: [verifyToken, locationsRoute] },
+    { path: '/messages', routes: [verifyToken, messageRoute] },
 
 ]
 

@@ -34,6 +34,12 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: 'cascade',
 
             })
+            Collection.hasMany(models.Message, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'cascade',
+            })
         }
     }
     Collection.init({
