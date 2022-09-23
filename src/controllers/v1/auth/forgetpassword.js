@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const config = require('../../../../config')
 
 const { UserService } = require('../../../services/resources')
-// const { EmailService } = require('../../../services')
+const { EmailService } = require('../../../services')
 
 const forgetPassword = async (req, res, next) => {
     try {
@@ -18,9 +18,9 @@ const forgetPassword = async (req, res, next) => {
             )
             const { id } = user
             const resetToken = { resetPasswordToken: jwtToken }
-            await UserService.update(resetToken, { id })
-            // await EmailService.forgetPasswordEmail(updatedUser.email,
-            //     updatedUser.firstName, updatedUser.resetPasswordToken)
+            const updatedUser = await UserService.update(resetToken, { id })
+            await EmailService.forgetPasswordEmail(updatedUser.email,
+                updatedUser.firstName, updatedUser.resetPasswordToken)
 
             res.send({ message: 'Forget Password', Token: jwtToken })
         } else {
