@@ -1,6 +1,7 @@
 const { transporter } = require('../utils')
 const logger = require('../../config/logger')
 const config = require('../../config')
+var ejs = require('ejs');
 
 class EmailService {
     constructor() {
@@ -44,9 +45,7 @@ class EmailService {
             from: config.email.from,
             to: email,
             subject: 'Forget Password Email',
-            text: `Hello ${name}, hope you are fine 
-            Here is your Reset Password Link 
-            Link: <a>${link}</a>`,
+            html: `Hello hope you are fine Here is your reset password link Click on <a href=${link}>Link</a>`
         }
 
         await this.sendEmail(mailOptions)
