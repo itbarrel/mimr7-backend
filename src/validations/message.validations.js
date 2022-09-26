@@ -8,8 +8,8 @@ const messageObj = {
         AccountId: Joi.string(),
         CollectionId: Joi.string(),
         HighlightId: Joi.string(),
-        number: Joi.string(),
-        offset: Joi.string(),
+        number: Joi.number(),
+        offset: Joi.number(),
         type: Joi.string(),
 
     }).options({ allowUnknown: true }),
@@ -18,4 +18,3 @@ const messageObj = {
 module.exports = {
     messageObj,
 }
-

@@ -62,5 +62,5 @@ module.exports = {
         },
         from: env.SMTP_SENDER_EMAIL || 'someone@yopmail.com',
     },
-    frontenddomain: env.frontenddomain || 'localhost:4200'
+    frontenddomain: env.frontenddomain || 'localhost:4200',
 }

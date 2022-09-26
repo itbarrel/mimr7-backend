@@ -23,5 +23,5 @@ module.exports = {
     HighlightLibraryService,
     PlayerService,
     LocationService,
-    MessageService
+    MessageService,
 }
