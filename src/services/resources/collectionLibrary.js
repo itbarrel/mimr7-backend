@@ -9,7 +9,8 @@ class CollectionLibraryService extends ResourceService {
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
         query.title && query.title !== '' ? query.title = { [Op.iLike]: `%${query.title}%` } : delete query.title
-        return await super.all(query, offset, limit, sort)
+        const data = await super.all(query, offset, limit, sort)
+        return data
     }
 }
 

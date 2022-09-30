@@ -19,7 +19,8 @@ class UserService extends ResourceService {
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
         query.userName && query.userName !== '' ? query.userName = { [Op.iLike]: `%${query.userName}%` } : delete query.userName
-        return await super.all(query, offset, limit, sort)
+        const data = await super.all(query, offset, limit, sort)
+        return data
     }
 }
 

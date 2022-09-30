@@ -4,21 +4,15 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class Organization extends Model {
+    class ClassList extends Model {
         static associate(models) {
-            Organization.belongsTo(models.Account, {
+            ClassList.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Organization.hasMany(models.User, {
-                foreignKey: {
-                    allowNull: true,
-                },
-                onDelete: 'cascade',
-            })
-            Organization.hasMany(models.ClassList, {
+            ClassList.belongsTo(models.Organization, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -26,32 +20,17 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    Organization.init({
+    ClassList.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         name: {
+            type: DataTypes.TEXT,
+        },
+        description: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        city: {
-            type: DataTypes.STRING,
-        },
-        region: {
-            type: DataTypes.STRING,
-        },
-        state: {
-            type: DataTypes.STRING,
-        },
-        status: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true,
-        },
-        active: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
         },
         createdAt: {
             allowNull: false,
@@ -67,11 +46,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Organization',
-        tableName: 'organizations',
+        modelName: 'ClassList',
+        tableName: 'classLists',
         paranoid: true,
     })
-    sequelizePaginate.paginate(Organization)
-
-    return Organization
+    sequelizePaginate.paginate(ClassList)
+    return ClassList
 }

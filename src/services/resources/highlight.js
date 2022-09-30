@@ -9,7 +9,8 @@ class HighlightService extends ResourceService {
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
         query.content && query.content !== '' ? query.content = { [Op.iLike]: `%${query.content}%` } : delete query.content
-        return await super.all(query, offset, limit, sort)
+        const data = await super.all(query, offset, limit, sort)
+        return data
     }
 }
 

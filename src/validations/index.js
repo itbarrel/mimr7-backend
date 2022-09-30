@@ -11,3 +11,4 @@ module.exports.highlightLibraryValidations = require('./highlightLibrary.validat
 module.exports.playerValidations = require('./player.validations')
 module.exports.locationValidations = require('./location.validations')
 module.exports.messageValidations = require('./message.validations')
+module.exports.classListValidations = require('./classList.validations')

@@ -10,6 +10,7 @@ const HighlightLibraryService = require('./highlightLibrary')
 const PlayerService = require('./player')
 const LocationService = require('./location')
 const MessageService = require('./message')
+const ClassListService = require('./classList')
 
 module.exports = {
     ResourceService,
@@ -24,4 +25,5 @@ module.exports = {
     PlayerService,
     LocationService,
     MessageService,
+    ClassListService,
 }

@@ -9,7 +9,8 @@ class PlayerService extends ResourceService {
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
         query.firstName && query.firstName !== '' ? query.firstName = { [Op.iLike]: `%${query.firstName}%` } : delete query.firstName
-        return await super.all(query, offset, limit, sort)
+        const data = await super.all(query, offset, limit, sort)
+        return data
     }
 }
 
