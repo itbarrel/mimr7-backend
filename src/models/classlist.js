@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            ClassList.belongsToMany(models.User, { through: 'classList_users' })
         }
     }
     ClassList.init({
