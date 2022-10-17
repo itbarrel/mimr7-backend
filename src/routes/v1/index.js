@@ -15,6 +15,8 @@ const playersRoute = require('./players')
 const locationsRoute = require('./locations')
 const messageRoute = require('./messages')
 const classListRoute = require('./classLists')
+const dynamicFormRoute = require('./dynamicForms')
+const contentPlanTemplateRoute = require('./contentPlanTemplate')
 
 const verifyToken = require('../../middlewares/verifyToken')
 
@@ -32,6 +34,8 @@ const routes = [
     { path: '/locations', routes: [verifyToken, locationsRoute] },
     { path: '/messages', routes: [verifyToken, messageRoute] },
     { path: '/classLists', routes: [verifyToken, classListRoute] },
+    { path: '/dynamicForms', routes: [verifyToken, dynamicFormRoute] },
+    { path: '/contentPlanTemplates', routes: [verifyToken, contentPlanTemplateRoute] },
 
 ]
 

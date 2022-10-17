@@ -11,6 +11,8 @@ const PlayerService = require('./player')
 const LocationService = require('./location')
 const MessageService = require('./message')
 const ClassListService = require('./classList')
+const DynamicFormService = require('./dynamicForm')
+const ContentplanTemplateService = require('./contantPlanTemplate')
 
 module.exports = {
     ResourceService,
@@ -26,4 +28,6 @@ module.exports = {
     LocationService,
     MessageService,
     ClassListService,
+    DynamicFormService,
+    ContentplanTemplateService,
 }
