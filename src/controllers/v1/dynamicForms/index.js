@@ -36,7 +36,6 @@ const show = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         const { id } = req.params
-        console.log('>>.')
         const dynamicForm = await DynamicFormService.update(req.body, { id })
         res.send(dynamicForm)
     } catch (error) {

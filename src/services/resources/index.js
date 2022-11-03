@@ -3,8 +3,8 @@ const AccountService = require('./account')
 const RoleService = require('./role')
 const UserService = require('./user')
 const OrganizationService = require('./organization')
-const CollectionService = require('./collection')
-const CollectionLibraryService = require('./collectionLibrary')
+const ContentService = require('./content')
+const ContentLibraryService = require('./contentLibrary')
 const HighlightService = require('./highlight')
 const HighlightLibraryService = require('./highlightLibrary')
 const PlayerService = require('./player')
@@ -20,8 +20,8 @@ module.exports = {
     UserService,
     RoleService,
     OrganizationService,
-    CollectionService,
-    CollectionLibraryService,
+    ContentService,
+    ContentLibraryService,
     HighlightService,
     HighlightLibraryService,
     PlayerService,

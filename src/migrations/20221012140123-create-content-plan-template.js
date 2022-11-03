@@ -43,11 +43,11 @@ module.exports = {
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             },
-            CollectionId: {
+            ContentId: {
                 type: Sequelize.UUID,
                 allowNull: false,
                 references: {
-                    model: 'collections',
+                    model: 'contents',
                     key: 'id',
                 },
                 onDelete: 'SET NULL',

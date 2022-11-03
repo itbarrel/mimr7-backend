@@ -7,8 +7,8 @@ const accountRoute = require('./accounts')
 const roleRoute = require('./roles')
 const userRoute = require('./users')
 const organizationRoute = require('./organizations')
-const collectionRoute = require('./collections')
-const collectionLibrariesRoute = require('./collectionLibraries')
+const contentRoute = require('./contents')
+const contentLibrariesRoute = require('./contentLibraries')
 const highlightRoute = require('./highlights')
 const highlightLibrariesRoute = require('./highlightLibraries')
 const playersRoute = require('./players')
@@ -26,8 +26,8 @@ const routes = [
     { path: '/roles', routes: [verifyToken, roleRoute] },
     { path: '/users', routes: [verifyToken, userRoute] },
     { path: '/organizations', routes: [verifyToken, organizationRoute] },
-    { path: '/collections', routes: [verifyToken, collectionRoute] },
-    { path: '/collectionLibraries', routes: [verifyToken, collectionLibrariesRoute] },
+    { path: '/contents', routes: [verifyToken, contentRoute] },
+    { path: '/contentLibraries', routes: [verifyToken, contentLibrariesRoute] },
     { path: '/highlights', routes: [verifyToken, highlightRoute] },
     { path: '/highlightLibraries', routes: [verifyToken, highlightLibrariesRoute] },
     { path: '/players', routes: [verifyToken, playersRoute] },

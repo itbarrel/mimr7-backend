@@ -26,13 +26,13 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            Account.hasMany(models.Collection, {
+            Account.hasMany(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Account.hasMany(models.CollectionLibrary, {
+            Account.hasMany(models.ContentLibrary, {
                 foreignKey: {
                     allowNull: false,
                 },

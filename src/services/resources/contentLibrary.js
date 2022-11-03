@@ -2,9 +2,9 @@ const { Op } = require('sequelize')
 const models = require('../../models')
 const ResourceService = require('./resource')
 
-class CollectionLibraryService extends ResourceService {
+class ContentLibraryService extends ResourceService {
     constructor() {
-        super(models.CollectionLibrary)
+        super(models.ContentLibrary)
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
@@ -14,4 +14,4 @@ class CollectionLibraryService extends ResourceService {
     }
 }
 
-module.exports = new CollectionLibraryService()
+module.exports = new ContentLibraryService()

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            Highlight.belongsTo(models.Collection, {
+            Highlight.belongsTo(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -49,7 +49,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         order: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
+            autoIncrement: true,
+            allowNull: false,
         },
         createdAt: {
             allowNull: false,
@@ -67,6 +68,9 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'Highlight',
         tableName: 'highlights',
+        defaultScope: {
+            order: [['order', 'ASC']],
+        },
         paranoid: true,
 
     })

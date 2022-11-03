@@ -4,37 +4,37 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class Collection extends Model {
+    class Content extends Model {
         static associate(models) {
-            Collection.belongsTo(models.Account, {
+            Content.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Collection.belongsTo(models.User, {
+            Content.belongsTo(models.User, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            Collection.hasMany(models.CollectionLibrary, {
+            Content.hasMany(models.ContentLibrary, {
                 foreignKey: 'parentId',
                 constraints: false,
                 onDelete: 'cascade',
                 scope: {
-                    parentType: 'collectionLibrary',
+                    parentType: 'ContentLibrary',
                 },
 
             })
-            Collection.hasMany(models.Highlight, {
+            Content.hasMany(models.Highlight, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
 
             })
-            Collection.hasMany(models.Message, {
+            Content.hasMany(models.Message, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    Collection.init({
+    Content.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -83,10 +83,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'Collection',
-        tableName: 'collections',
+        modelName: 'Content',
+        tableName: 'contents',
         paranoid: true,
     })
-    sequelizePaginate.paginate(Collection)
-    return Collection
+    sequelizePaginate.paginate(Content)
+    return Content
 }

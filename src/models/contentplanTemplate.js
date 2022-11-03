@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            ContentplanTemplate.belongsTo(models.Collection, {
+            ContentplanTemplate.belongsTo(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },

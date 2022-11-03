@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            User.hasMany(models.Collection, {
+            User.hasMany(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },

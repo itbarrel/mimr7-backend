@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-const collectionObj = {
+const contentObj = {
     body: Joi.object().keys({
         title: Joi.string().required(),
         AccountId: Joi.string(),
@@ -17,5 +17,5 @@ const collectionObj = {
 }
 
 module.exports = {
-    collectionObj,
+    contentObj,
 }

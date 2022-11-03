@@ -4,12 +4,12 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class CollectionLibrary extends Model {
+    class ContentLibrary extends Model {
         static associate(models) {
-            CollectionLibrary.belongsTo(models.Collection, {
+            ContentLibrary.belongsTo(models.Content, {
                 foreignKey: 'parentId',
             })
-            CollectionLibrary.belongsTo(models.Account, {
+            ContentLibrary.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: true,
                 },
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    CollectionLibrary.init({
+    ContentLibrary.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         parentType: {
             type: DataTypes.STRING,
-            defaultValue: 'collectionLibrary',
+            defaultValue: 'contentLibrary',
         },
         active: {
             type: DataTypes.BOOLEAN,
@@ -72,16 +72,16 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'CollectionLibrary',
+        modelName: 'ContentLibrary',
         tableName: 'libraries',
         defaultScope: {
             where: {
-                parentType: 'collectionLibrary',
+                parentType: 'contentLibrary',
             },
         },
         paranoid: true,
     })
-    sequelizePaginate.paginate(CollectionLibrary)
+    sequelizePaginate.paginate(ContentLibrary)
 
-    return CollectionLibrary
+    return ContentLibrary
 }

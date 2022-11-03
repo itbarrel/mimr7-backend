@@ -6,7 +6,7 @@ const messageObj = {
         hint: Joi.string(),
         solution: Joi.string(),
         AccountId: Joi.string(),
-        CollectionId: Joi.string(),
+        ContentId: Joi.string(),
         HighlightId: Joi.string(),
         number: Joi.number(),
         offset: Joi.number(),

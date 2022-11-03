@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            Message.belongsTo(models.Collection, {
+            Message.belongsTo(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -50,6 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         offset: {
             type: DataTypes.INTEGER,
         },
+        order: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+        },
         createdAt: {
             allowNull: false,
             type: DataTypes.DATE,
@@ -66,6 +70,9 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'Message',
         tableName: 'messages',
+        defaultScope: {
+            order: [['order', 'ASC']],
+        },
         paranoid: true,
     })
     sequelizePaginate.paginate(Message)

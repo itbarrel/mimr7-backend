@@ -4,7 +4,7 @@ const highlightObj = {
     body: Joi.object().keys({
         content: Joi.string().required(),
         AccountId: Joi.string(),
-        CollectionId: Joi.string(),
+        ContentId: Joi.string(),
         description: Joi.string(),
     }).options({ allowUnknown: true }),
 }
