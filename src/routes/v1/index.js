@@ -17,6 +17,7 @@ const messageRoute = require('./messages')
 const classListRoute = require('./classLists')
 const dynamicFormRoute = require('./dynamicForms')
 const contentPlanTemplateRoute = require('./contentPlanTemplate')
+const studentRoute = require('./students')
 
 const verifyToken = require('../../middlewares/verifyToken')
 
@@ -36,6 +37,7 @@ const routes = [
     { path: '/classLists', routes: [verifyToken, classListRoute] },
     { path: '/dynamicForms', routes: [verifyToken, dynamicFormRoute] },
     { path: '/contentPlanTemplates', routes: [verifyToken, contentPlanTemplateRoute] },
+    { path: '/students', routes: [verifyToken, studentRoute] },
 
 ]
 

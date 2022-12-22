@@ -4,35 +4,38 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class ClassList extends Model {
+    class Student extends Model {
         static associate(models) {
-            ClassList.belongsTo(models.Account, {
+            Student.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            ClassList.belongsTo(models.Organization, {
+            Student.belongsTo(models.Organization, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            ClassList.belongsToMany(models.User, { through: 'classList_users' })
-            ClassList.belongsToMany(models.Student, { through: 'classList_students' })
-            ClassList.belongsToMany(models.Content, { through: 'classList_contents' })
+            Student.belongsToMany(models.ClassList, { through: 'classList_students' })
         }
     }
-    ClassList.init({
+    Student.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         name: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
+            allowNull: false,
         },
-        description: {
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        mobilePhone: {
             type: DataTypes.STRING,
         },
         createdAt: {
@@ -49,10 +52,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'ClassList',
-        tableName: 'classLists',
+        modelName: 'Student',
+        tableName: 'students',
         paranoid: true,
     })
-    sequelizePaginate.paginate(ClassList)
-    return ClassList
+    sequelizePaginate.paginate(Student)
+    return Student
 }

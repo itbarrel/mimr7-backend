@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            Content.belongsToMany(models.ClassList, { through: 'classList_contents' })
         }
     }
     Content.init({

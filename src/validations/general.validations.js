@@ -17,7 +17,7 @@ const allResources = {
 const getResource = {
     params: Joi.object().keys({
         id: Joi.string().required().guid(),
-    }),
+    }).options({ allowUnknown: true }),
 }
 
 module.exports = {

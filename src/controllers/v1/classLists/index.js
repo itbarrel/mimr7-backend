@@ -1,4 +1,4 @@
-const { ClassListService } = require('../../../services/resources')
+const { ClassListService, StudentService, ContentService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -52,7 +52,53 @@ const destroy = async (req, res, next) => {
         next(error)
     }
 }
+const addStudent = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { studentId } = req.body
+        const classList = await ClassListService.findById(id)
+        const student = await StudentService.findById(studentId)
+        await classList.addStudent(student)
+        res.send({ message: 'Student Added Successfully' })
+    } catch (error) {
+        next(error)
+    }
+}
+const removeStudent = async (req, res, next) => {
+    try {
+        const { id, studentId } = req.params
+        const classList = await ClassListService.findById(id)
+        const student = await StudentService.findById(studentId)
+        await classList.removeStudent(student)
+        res.send({ message: 'Student Removed Successfully' })
+    } catch (error) {
+        next(error)
+    }
+}
+const addContent = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { contentId } = req.body
+        const classList = await ClassListService.findById(id)
+        const content = await ContentService.findById(contentId)
+        await classList.addContent(content)
+        res.send({ message: 'Content Added Successfully' })
+    } catch (error) {
+        next(error)
+    }
+}
+const removeContent = async (req, res, next) => {
+    try {
+        const { id, contentId } = req.params
+        const classList = await ClassListService.findById(id)
+        const content = await ContentService.findById(contentId)
+        await classList.removeContent(content)
+        res.send({ message: 'Content Removed Successfully' })
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports = {
-    all, create, show, update, destroy,
+    all, create, show, update, destroy, addStudent, removeStudent, addContent, removeContent,
 }
