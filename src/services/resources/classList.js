@@ -9,6 +9,7 @@ class ClassListService extends ResourceService {
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
+        query.name && query.name !== '' ? query.name = { [Op.iLike]: `%${query.name}%` } : delete query.name
         const { accountId, role } = storage.get('decoded')
         if (role !== 'SuperAdmin') {
             query.AccountId = accountId

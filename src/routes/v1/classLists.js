@@ -16,11 +16,11 @@ router.put('/:id', validate(generalValidations.getResource), classListsControlle
 
 router.delete('/:id', validate(generalValidations.getResource), classListsController.destroy)
 
-router.get('/:id/students', validate(generalValidations.getResource), classListsController.addStudent)
+router.post('/:id/students', validate(generalValidations.getResource), classListsController.addStudent)
 
 router.delete('/:id/students/:studentId', validate(generalValidations.getResource), classListsController.removeStudent)
 
-router.get('/:id/contents', validate(generalValidations.getResource), classListsController.addContent)
+router.post('/:id/contents', validate(generalValidations.getResource), classListsController.addContent)
 
 router.delete('/:id/contents/:contentId', validate(generalValidations.getResource), classListsController.removeContent)
 module.exports = router
