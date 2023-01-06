@@ -1,4 +1,5 @@
-const { ContentService } = require('../../../services/resources')
+const { Op } = require('sequelize')
+const { ContentService, ClassListService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -52,7 +53,21 @@ const destroy = async (req, res, next) => {
         next(error)
     }
 }
+const getAllContent = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const classList = await ClassListService.findById(id)
+
+        const contents = await classList.getContents()
+        const Ids = contents.map((content) => content.id)
+        const { docs: Contents } = await ContentService.all({ id: { [Op.notIn]: Ids } })
+
+        res.send({ Contents })
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports = {
-    all, create, show, update, destroy,
+    all, create, show, update, destroy, getAllContent,
 }

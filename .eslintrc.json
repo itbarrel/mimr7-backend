@@ -39,7 +39,7 @@
     ],
     "max-len": [
       "error",
-      125
+      140
     ],
     "semi-style": [
       "error",
