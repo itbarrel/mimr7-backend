@@ -1,5 +1,5 @@
 const { ClassListService, StudentService, ContentService } = require('../../../services/resources')
-
+const { Op } = require('sequelize')
 const all = async (req, res, next) => {
     try {
         const {
@@ -55,10 +55,12 @@ const destroy = async (req, res, next) => {
 const addStudent = async (req, res, next) => {
     try {
         const { id } = req.params
-        const { studentId } = req.body
-        const classList = await ClassListService.findById(id)
-        const student = await StudentService.findById(studentId)
-        await classList.addStudent(student)
+        const { students } = req.body
+        students.map(async (student) => {
+            const classList = await ClassListService.findById(id)
+            const addStudent = await StudentService.findById(student.id)
+            const s = await classList.addStudent(addStudent)
+        })
         res.send({ message: 'Student Added Successfully' })
     } catch (error) {
         next(error)
