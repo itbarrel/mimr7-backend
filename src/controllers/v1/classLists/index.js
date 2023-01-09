@@ -26,7 +26,7 @@ const create = async (req, res, next) => {
 const show = async (req, res, next) => {
     try {
         const { id } = req.params
-        const classList = await ClassListService.findById(id)
+        const { docs: classList } = await ClassListService.all({ id })
         res.send({ classList })
     } catch (error) {
         next(error)
