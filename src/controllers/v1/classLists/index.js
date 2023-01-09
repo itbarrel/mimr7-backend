@@ -56,12 +56,33 @@ const addStudent = async (req, res, next) => {
     try {
         const { id } = req.params
         const { students } = req.body
-        students.map(async (student) => {
-            const classList = await ClassListService.findById(id)
-            const newStudent = await StudentService.findById(student.id)
-            await classList.addStudent(newStudent)
-        })
-        res.send({ message: 'Student Added Successfully' })
+        const classList = await ClassListService.findById(id)
+        if (!classList) {
+            res.send({ message: 'Class Not Found' })
+        }
+
+        const messages = await Promise.all(
+            students.map(async (studentId) => {
+                return new Promise(async (resolve, reject) => {
+                    const newStudent = await StudentService.findById(studentId)
+                    if (!newStudent) {
+                        resolve({ message: 'Student Not Found' })
+                    }
+                    const exitsStudent = await classList.hasStudent(newStudent)
+                    if (exitsStudent) {
+                        resolve({ message: 'Student Already added' })
+
+                    } else {
+                        await classList.addStudent(newStudent)
+                        resolve({
+                            message: `Student with id ${newStudent.id}  added succesfully`
+                        })
+                    }
+                })
+            })
+        )
+        res.send({ messages })
+
     } catch (error) {
         next(error)
     }
