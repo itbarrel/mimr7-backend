@@ -18,9 +18,9 @@ router.delete('/:id', validate(generalValidations.getResource), classListsContro
 
 router.post('/:id/students', validate(generalValidations.getResource), classListsController.addStudent)
 
-router.delete('/:id/students/:studentId', validate(generalValidations.getResource), classListsController.removeStudent)
+router.delete('/:id/students', validate(generalValidations.getResource), classListsController.removeStudent)
 
 router.post('/:id/contents', validate(generalValidations.getResource), classListsController.addContent)
 
-router.delete('/:id/contents/:contentId', validate(generalValidations.getResource), classListsController.removeContent)
+router.delete('/:id/contents', validate(generalValidations.getResource), classListsController.removeContent)
 module.exports = router

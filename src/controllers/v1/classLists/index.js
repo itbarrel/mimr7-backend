@@ -59,11 +59,9 @@ const addStudent = async (req, res, next) => {
         const classList = await ClassListService.findById(id)
         if (!classList) {
             res.send({ message: 'Class Not Found' })
-        }
-
-        const messages = await Promise.all(
-            students.map(async (studentId) => {
-                return new Promise(async (resolve, reject) => {
+        } else {
+            const messages = await Promise.all(
+                students.map(async (studentId) => new Promise(async (resolve) => {
                     const newStudent = await StudentService.findById(studentId)
                     if (!newStudent) {
                         resolve({ message: 'Student Not Found' })
@@ -71,29 +69,42 @@ const addStudent = async (req, res, next) => {
                     const exitsStudent = await classList.hasStudent(newStudent)
                     if (exitsStudent) {
                         resolve({ message: 'Student Already added' })
-
                     } else {
                         await classList.addStudent(newStudent)
                         resolve({
-                            message: `Student with id ${newStudent.id}  added succesfully`
+                            message: `Student with id ${newStudent.id}  added succesfully`,
                         })
                     }
-                })
-            })
-        )
-        res.send({ messages })
-
+                })),
+            )
+            res.send({ messages })
+        }
     } catch (error) {
         next(error)
     }
 }
 const removeStudent = async (req, res, next) => {
     try {
-        const { id, studentId } = req.params
+        const { id } = req.params
+        const { students } = req.body
+
         const classList = await ClassListService.findById(id)
-        const student = await StudentService.findById(studentId)
-        await classList.removeStudent(student)
-        res.send({ message: 'Student Removed Successfully' })
+        if (!classList) {
+            res.send({ message: 'Class Not Found' })
+        } else {
+            const response = await Promise.all(
+                students.map(async (studentId) => new Promise(async (resolve) => {
+                    const findStudent = await StudentService.findById(studentId)
+                    if (!findStudent) {
+                        resolve({ message: 'Student Not Found' })
+                    } else {
+                        await classList.removeStudent(findStudent)
+                        resolve({ message: `Student with Id ${findStudent.id} Deleted Successfully` })
+                    }
+                })),
+            )
+            res.send({ response })
+        }
     } catch (error) {
         next(error)
     }
@@ -102,23 +113,55 @@ const addContent = async (req, res, next) => {
     try {
         const { id } = req.params
         const { contents } = req.body
-        contents.map(async (content) => {
-            const classList = await ClassListService.findById(id)
-            const newcontent = await ContentService.findById(content.id)
-            await classList.addContent(newcontent)
-        })
-        res.send({ message: 'Content Added Successfully' })
+        const classList = await ClassListService.findById(id)
+        if (!classList) {
+            res.send({ message: 'Class Not Found' })
+        } else {
+            const messages = await Promise.all(
+                contents.map(async (contentId) => new Promise(async (resolve) => {
+                    const newContent = await ContentService.findById(contentId)
+                    if (!newContent) {
+                        resolve({ message: 'Content Not Found' })
+                    }
+                    const exitsContent = await classList.hasContent(newContent)
+                    if (exitsContent) {
+                        resolve({ message: 'Content Already added' })
+                    } else {
+                        await classList.addContent(newContent)
+                        resolve({
+                            message: `Content with id ${newContent.id}  added succesfully`,
+                        })
+                    }
+                })),
+            )
+            res.send({ messages })
+        }
     } catch (error) {
         next(error)
     }
 }
 const removeContent = async (req, res, next) => {
     try {
-        const { id, contentId } = req.params
+        const { id } = req.params
+        const { contents } = req.body
+
         const classList = await ClassListService.findById(id)
-        const content = await ContentService.findById(contentId)
-        await classList.removeContent(content)
-        res.send({ message: 'Content Removed Successfully' })
+        if (!classList) {
+            res.send({ message: 'Class Not Found' })
+        } else {
+            const response = await Promise.all(
+                contents.map(async (contentId) => new Promise(async (resolve) => {
+                    const findcontent = await ContentService.findById(contentId)
+                    if (!findcontent) {
+                        resolve({ message: 'Content Not Found' })
+                    } else {
+                        await classList.removeContent(findcontent)
+                        resolve({ message: `Content with Id ${findcontent.id} Deleted Successfully` })
+                    }
+                })),
+            )
+            res.send({ response })
+        }
     } catch (error) {
         next(error)
     }
