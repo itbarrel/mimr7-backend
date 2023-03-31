@@ -14,6 +14,8 @@ const ClassListService = require('./classList')
 const DynamicFormService = require('./dynamicForm')
 const ContentplanTemplateService = require('./contantPlanTemplate')
 const StudentService = require('./student')
+const ClassListScheduleService = require('./classListSchedule')
+const MessageScheduleService = require('./messageSchedule')
 
 module.exports = {
     ResourceService,
@@ -32,4 +34,6 @@ module.exports = {
     DynamicFormService,
     ContentplanTemplateService,
     StudentService,
+    ClassListScheduleService,
+    MessageScheduleService
 }

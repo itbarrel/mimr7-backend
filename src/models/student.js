@@ -2,7 +2,7 @@ const {
     Model,
 } = require('sequelize')
 const sequelizePaginate = require('sequelize-paginate')
-
+const { EmailService } = require('../services')
 module.exports = (sequelize, DataTypes) => {
     class Student extends Model {
         static associate(models) {
@@ -19,6 +19,12 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: 'cascade',
             })
             Student.belongsToMany(models.ClassList, { through: 'classList_students' })
+            Student.hasMany(models.MessageSchedule, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'cascade',
+            })
         }
     }
     Student.init({
@@ -56,6 +62,13 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'students',
         paranoid: true,
     })
+    Student.prototype.messageEmail = async function (message, contentName) {
+        return EmailService.messageEmail(
+            this.email,
+            message,
+            contentName
+        )
+    }
     sequelizePaginate.paginate(Student)
     return Student
 }

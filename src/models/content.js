@@ -40,6 +40,12 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            Content.hasMany(models.ClassListSchedule, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'cascade',
+            })
             Content.belongsToMany(models.ClassList, { through: 'classList_contents' })
         }
     }

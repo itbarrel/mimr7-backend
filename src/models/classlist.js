@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
             ClassList.belongsToMany(models.User, { through: 'classList_users' })
             ClassList.belongsToMany(models.Student, { through: 'classList_students' })
             ClassList.belongsToMany(models.Content, { through: 'classList_contents' })
+            ClassList.hasMany(models.ClassListSchedule, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'cascade',
+            })
         }
     }
     ClassList.init({

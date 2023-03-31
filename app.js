@@ -10,14 +10,13 @@ const authLimiter = require('./src/middlewares/rateLimiter')
 const routes = require('./src/routes')
 const { errorConverter, errorHandler } = require('./src/middlewares/error')
 const ApiError = require('./src/utils/ApiError')
-
+require('./src/cron-jobs')
 const app = express()
 
 if (config.env !== 'test') {
     app.use(morgan.successHandler)
     app.use(morgan.errorHandler)
 }
-
 // set security HTTP headers
 app.use(helmet())
 

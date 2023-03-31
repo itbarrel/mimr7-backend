@@ -49,6 +49,17 @@ class EmailService {
 
         await this.sendEmail(mailOptions)
     }
+    async messageEmail(email, message, contentName) {
+        console.log(email, '........');
+        const mailOptions = {
+            from: config.email.from,
+            to: email,
+            subject: `Practice Question of ${contentName} `,
+            html: message,
+        }
+
+        await this.sendEmail(mailOptions)
+    }
 }
 
 module.exports = new EmailService()
