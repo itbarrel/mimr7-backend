@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
         return EmailService.messageEmail(
             this.email,
             message,
-            contentName
+            contentName,
         )
     }
     sequelizePaginate.paginate(Student)

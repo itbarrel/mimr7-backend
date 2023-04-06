@@ -35,5 +35,5 @@ module.exports = {
     ContentplanTemplateService,
     StudentService,
     ClassListScheduleService,
-    MessageScheduleService
+    MessageScheduleService,
 }

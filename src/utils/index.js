@@ -1,4 +1,4 @@
-module.exports.IDGenerator = require('./IdGenerator')
+module.exports.hashGenerator = require('./hashGenerator')
 module.exports.removeChars = require('./downcase')
 module.exports.sequelize = require('./dbConnection')
 // module.exports.plugMiddleware = require('./plugMiddleware')

@@ -3,7 +3,7 @@ const {
 } = require('sequelize')
 
 const sequelizePaginate = require('sequelize-paginate')
-const IDGenerator = require('../utils/IdGenerator')
+const hashGenerator = require('../utils/hashGenerator')
 
 module.exports = (sequelize, DataTypes) => {
     class Account extends Model {
@@ -171,7 +171,7 @@ module.exports = (sequelize, DataTypes) => {
             // eslint-disable-next-line no-unused-vars
             beforeValidate(account) {
                 // eslint-disable-next-line no-param-reassign
-                account.apikey = IDGenerator(32)
+                account.apikey = hashGenerator(32)
                 return account
             },
 

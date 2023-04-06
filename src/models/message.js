@@ -76,9 +76,6 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'Message',
         tableName: 'messages',
-        defaultScope: {
-            order: [['order', 'ASC']],
-        },
         paranoid: true,
     })
     sequelizePaginate.paginate(Message)

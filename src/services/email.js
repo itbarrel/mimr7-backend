@@ -49,13 +49,15 @@ class EmailService {
 
         await this.sendEmail(mailOptions)
     }
-    async messageEmail(email, message, contentName) {
-        console.log(email, '........');
+
+    async messageEmail(email, contentName, hash) {
+        const { frontenddomain } = config
+        const link = `${frontenddomain}/question?hash=${hash}`
         const mailOptions = {
             from: config.email.from,
             to: email,
             subject: `Practice Question of ${contentName} `,
-            html: message,
+            html: `Hello hope you are fine Please click the link for answer <a href=${link}>Link</a>`,
         }
 
         await this.sendEmail(mailOptions)
