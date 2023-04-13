@@ -20,6 +20,7 @@ const contentPlanTemplateRoute = require('./contentPlanTemplate')
 const studentRoute = require('./students')
 const classListScheduleRoute = require('./classListSchdules')
 const messageScheduleRoute = require('./messageSchedule')
+const messageScheduleAnswerRoute = require('./messageScheduleAnswer')
 
 const verifyToken = require('../../middlewares/verifyToken')
 
@@ -42,6 +43,7 @@ const routes = [
     { path: '/students', routes: [verifyToken, studentRoute] },
     { path: '/classListSchedules', routes: [verifyToken, classListScheduleRoute] },
     { path: '/messageSchedules', routes: [verifyToken, messageScheduleRoute] },
+    { path: '/messageScheduleAnswers', routes: [verifyToken, messageScheduleAnswerRoute] },
 
 ]
 

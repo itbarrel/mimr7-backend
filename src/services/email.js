@@ -52,7 +52,7 @@ class EmailService {
 
     async messageEmail(email, contentName, hash) {
         const { frontenddomain } = config
-        const link = `${frontenddomain}/question?hash=${hash}`
+        const link = `${frontenddomain}/student-message/${hash}`
         const mailOptions = {
             from: config.email.from,
             to: email,

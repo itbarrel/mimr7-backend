@@ -1,5 +1,5 @@
-var inherits = require('inherits')
-var EventEmitter = require('events').EventEmitter
+const inherits = require('inherits')
+const { EventEmitter } = require('events')
 
 module.exports = Queue
 module.exports.default = Queue
@@ -23,14 +23,14 @@ function Queue(options) {
 }
 inherits(Queue, EventEmitter)
 
-var arrayMethods = [
+const arrayMethods = [
     'pop',
     'shift',
     'indexOf',
-    'lastIndexOf'
+    'lastIndexOf',
 ]
 
-arrayMethods.forEach(function (method) {
+arrayMethods.forEach((method) => {
     Queue.prototype[method] = function () {
         return Array.prototype[method].apply(this.jobs, arguments)
     }
@@ -46,15 +46,15 @@ Queue.prototype.reverse = function () {
     return this
 }
 
-var arrayAddMethods = [
+const arrayAddMethods = [
     'push',
     'unshift',
-    'splice'
+    'splice',
 ]
 
-arrayAddMethods.forEach(function (method) {
+arrayAddMethods.forEach((method) => {
     Queue.prototype[method] = function () {
-        var methodResult = Array.prototype[method].apply(this.jobs, arguments)
+        const methodResult = Array.prototype[method].apply(this.jobs, arguments)
         if (this.autostart) {
             this.start()
         }
@@ -63,9 +63,9 @@ arrayAddMethods.forEach(function (method) {
 })
 
 Object.defineProperty(Queue.prototype, 'length', {
-    get: function () {
+    get() {
         return this.pending + this.jobs.length
-    }
+    },
 })
 
 Queue.prototype.start = function (cb) {
@@ -86,14 +86,14 @@ Queue.prototype.start = function (cb) {
         return
     }
 
-    var self = this
-    var job = this.jobs.shift()
-    var once = true
-    var session = this.session
-    var timeoutId = null
-    var didTimeout = false
-    var resultIndex = null
-    var timeout = job.hasOwnProperty('timeout') ? job.timeout : this.timeout
+    const self = this
+    const job = this.jobs.shift()
+    let once = true
+    const { session } = this
+    let timeoutId = null
+    let didTimeout = false
+    let resultIndex = null
+    const timeout = job.hasOwnProperty('timeout') ? job.timeout : this.timeout
 
     function next(err, result) {
         if (once && self.session === session) {
@@ -124,7 +124,7 @@ Queue.prototype.start = function (cb) {
     }
 
     if (timeout) {
-        timeoutId = setTimeout(function () {
+        timeoutId = setTimeout(() => {
             didTimeout = true
             if (self.listeners('timeout').length > 0) {
                 self.emit('timeout', next, job)
@@ -142,13 +142,9 @@ Queue.prototype.start = function (cb) {
 
     this.pending++
     self.emit('start', job)
-    var promise = job(next)
+    const promise = job(next)
     if (promise && promise.then && typeof promise.then === 'function') {
-        promise.then(function (result) {
-            return next(null, result)
-        }).catch(function (err) {
-            return next(err || true)
-        })
+        promise.then((result) => next(null, result)).catch((err) => next(err || true))
     }
 
     if (this.running && this.jobs.length > 0) {
@@ -168,15 +164,15 @@ Queue.prototype.end = function (err) {
 }
 
 function clearTimers() {
-    for (var key in this.timers) {
-        var timeoutId = this.timers[key]
+    for (const key in this.timers) {
+        const timeoutId = this.timers[key]
         delete this.timers[key]
         clearTimeout(timeoutId)
     }
 }
 
 function callOnErrorOrEnd(cb) {
-    var self = this
+    const self = this
     this.on('error', onerror)
     this.on('end', onend)
 

@@ -4,27 +4,21 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class MessageSchedule extends Model {
+    class MessageScheduleAnswer extends Model {
         static associate(models) {
-            MessageSchedule.belongsTo(models.Account, {
+            MessageScheduleAnswer.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            MessageSchedule.belongsTo(models.Student, {
+            MessageScheduleAnswer.belongsTo(models.Student, {
                 foreignKey: {
                     allowNull: false,
                 },
                 onDelete: 'cascade',
             })
-            MessageSchedule.belongsTo(models.Message, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
-            })
-            MessageSchedule.hasMany(models.MessageScheduleAnswer, {
+            MessageScheduleAnswer.belongsTo(models.MessageSchedule, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -32,18 +26,14 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    MessageSchedule.init({
+    MessageScheduleAnswer.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        count: {
-            type: DataTypes.NUMBER,
-            defaultValue: 0,
-        },
-        hash: {
-            type: DataTypes.STRING,
+        response: {
+            type: DataTypes.TEXT,
         },
         createdAt: {
             allowNull: false,
@@ -59,11 +49,11 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'MessageSchedule',
-        tableName: 'messageSchedules',
+        modelName: 'MessageScheduleAnswer',
+        tableName: 'messageScheduleAnswers',
         paranoid: true,
     })
-    sequelizePaginate.paginate(MessageSchedule)
+    sequelizePaginate.paginate(MessageScheduleAnswer)
 
-    return MessageSchedule
+    return MessageScheduleAnswer
 }

@@ -17,11 +17,15 @@ const all = async (req, res, next) => {
 const show = async (req, res, next) => {
     try {
         const { hash } = req.query
-        const { StudentId, MessageId } = await MessageScheduleService.findByQuery({ hash }, true)
-        const student = await StudentService.findById(StudentId)
-        const message = await MessageService.findById(MessageId)
-
-        res.send({ student, message })
+        const messageSchedule = await MessageScheduleService.findByQuery({ hash }, true)
+        if (messageSchedule) {
+            const { StudentId, MessageId, id } = messageSchedule
+            const student = await StudentService.findById(StudentId)
+            const message = await MessageService.findById(MessageId)
+            res.send({ student, message, messageScheduleId: id })
+        } else {
+            res.send('MessageSchedule Not Found')
+        }
     } catch (error) {
         next(error)
     }

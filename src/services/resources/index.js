@@ -16,6 +16,7 @@ const ContentplanTemplateService = require('./contantPlanTemplate')
 const StudentService = require('./student')
 const ClassListScheduleService = require('./classListSchedule')
 const MessageScheduleService = require('./messageSchedule')
+const MessageScheduleAnswerService = require('./messageScheduleAnswer')
 
 module.exports = {
     ResourceService,
@@ -36,4 +37,5 @@ module.exports = {
     StudentService,
     ClassListScheduleService,
     MessageScheduleService,
+    MessageScheduleAnswerService,
 }
