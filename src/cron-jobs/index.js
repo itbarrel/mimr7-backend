@@ -47,4 +47,7 @@ cron.schedule('  0 8-22 * * *', async () => {
     jobQueue.start((err) => {
         if (err) throw err
     })
+}, {
+    scheduled: true,
+    timezone: 'Asia/Karachi'
 })
