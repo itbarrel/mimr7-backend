@@ -43,7 +43,7 @@ const routes = [
     { path: '/students', routes: [verifyToken, studentRoute] },
     { path: '/classListSchedules', routes: [verifyToken, classListScheduleRoute] },
     { path: '/messageSchedules', routes: [messageScheduleRoute] },
-    { path: '/messageScheduleAnswers', routes: [verifyToken, messageScheduleAnswerRoute] },
+    { path: '/messageScheduleAnswers', routes: [messageScheduleAnswerRoute] },
 
 ]
 
