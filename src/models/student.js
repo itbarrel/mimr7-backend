@@ -69,11 +69,11 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'students',
         paranoid: true,
     })
-    Student.prototype.messageEmail = async function (message, contentName) {
+    Student.prototype.messageEmail = async function (contentName, hash) {
         return EmailService.messageEmail(
             this.email,
-            message,
             contentName,
+            hash
         )
     }
     sequelizePaginate.paginate(Student)

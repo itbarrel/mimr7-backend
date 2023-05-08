@@ -38,7 +38,7 @@ cron.schedule('  0 8-22 * * *', async () => {
                 if (!findMessageSchedule || findMessageSchedule && findMessageSchedule.length <= 4) {
                     const messageSchedule = await MessageScheduleService.create(messageScheduleObj)
                     if (messageSchedule) {
-                        await student.messageEmail(name, content.title, messageSchedule.hash)
+                        await student.messageEmail(content.title, messageSchedule.hash)
                     }
                 }
             })
