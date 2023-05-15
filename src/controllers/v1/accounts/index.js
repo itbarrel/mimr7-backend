@@ -26,7 +26,7 @@ const show = async (req, res, next) => {
     try {
         const { id } = req.params
         const account = await AccountService.findById(id)
-        const role = await RoleService.findByQuery({ name: 'Admin' })
+        const role = await RoleService.findByQuery({ name: 'Admin', AccountId: account.id })
         const admin = await account.getUsers({ where: { RoleId: role.id } })
         res.send({ account, admin })
     } catch (error) {
@@ -38,7 +38,9 @@ const update = async (req, res, next) => {
     try {
         const { id } = req.params
         const account = await AccountService.update(req.body, { id })
-        res.send(account)
+        const role = await RoleService.findByQuery({ name: 'Admin', AccountId: account.id })
+        const admin = await account.getUsers({ where: { RoleId: role.id } })
+        res.send({ account, admin })
     } catch (error) {
         next(error)
     }
