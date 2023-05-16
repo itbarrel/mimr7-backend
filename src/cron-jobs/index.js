@@ -53,7 +53,7 @@ cron.schedule('  0 8-22 * * *', async () => {
     scheduled: true,
     timezone: 'Asia/Karachi'
 })
-cron.schedule('  5 23 * * *', async () => {
+cron.schedule('  5 0 * * *', async () => {
     jobQueue.push(async () => {
         const classes = await ClassListScheduleService.findByQuery({ active: true }, false)
         if (classes) {
