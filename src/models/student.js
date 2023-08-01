@@ -1,6 +1,4 @@
-const {
-    Model,
-} = require('sequelize')
+const { Model } = require('sequelize')
 const sequelizePaginate = require('sequelize-paginate')
 const { EmailService } = require('../services')
 
@@ -19,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            Student.belongsToMany(models.ClassList, { through: 'classList_students' })
+            Student.belongsToMany(models.ClassList, {
+                through: 'classList_students',
+            })
             Student.hasMany(models.MessageSchedule, {
                 foreignKey: {
                     allowNull: false,
@@ -34,47 +34,46 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    Student.init({
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
+    Student.init(
+        {
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            mobilePhone: {
+                type: DataTypes.STRING,
+            },
+            createdAt: {
+                allowNull: false,
+                type: DataTypes.DATE,
+            },
+            updatedAt: {
+                allowNull: true,
+                type: DataTypes.DATE,
+            },
+            deletedAt: {
+                allowNull: true,
+                type: DataTypes.DATE,
+            },
         },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
+        {
+            sequelize,
+            modelName: 'Student',
+            tableName: 'students',
+            paranoid: true,
         },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        mobilePhone: {
-            type: DataTypes.STRING,
-        },
-        createdAt: {
-            allowNull: false,
-            type: DataTypes.DATE,
-        },
-        updatedAt: {
-            allowNull: true,
-            type: DataTypes.DATE,
-        },
-        deletedAt: {
-            allowNull: true,
-            type: DataTypes.DATE,
-        },
-    }, {
-        sequelize,
-        modelName: 'Student',
-        tableName: 'students',
-        paranoid: true,
-    })
+    )
     Student.prototype.messageEmail = async function (contentName, hash) {
-        return EmailService.messageEmail(
-            this.email,
-            contentName,
-            hash
-        )
+        return EmailService.messageEmail(this.email, contentName, hash)
     }
     sequelizePaginate.paginate(Student)
     return Student

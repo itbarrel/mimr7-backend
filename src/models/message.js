@@ -1,6 +1,4 @@
-const {
-    Model,
-} = require('sequelize')
+const { Model } = require('sequelize')
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
@@ -32,52 +30,55 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     }
-    Message.init({
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
+    Message.init(
+        {
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true,
+            },
+            name: {
+                type: DataTypes.TEXT,
+            },
+            hint: {
+                type: DataTypes.TEXT,
+            },
+            solution: {
+                type: DataTypes.TEXT,
+            },
+            number: {
+                type: DataTypes.INTEGER,
+            },
+            type: {
+                type: DataTypes.STRING,
+            },
+            offset: {
+                type: DataTypes.INTEGER,
+            },
+            order: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+            },
+            createdAt: {
+                allowNull: false,
+                type: DataTypes.DATE,
+            },
+            updatedAt: {
+                allowNull: true,
+                type: DataTypes.DATE,
+            },
+            deletedAt: {
+                allowNull: true,
+                type: DataTypes.DATE,
+            },
         },
-        name: {
-            type: DataTypes.TEXT,
+        {
+            sequelize,
+            modelName: 'Message',
+            tableName: 'messages',
+            paranoid: true,
         },
-        hint: {
-            type: DataTypes.TEXT,
-        },
-        solution: {
-            type: DataTypes.TEXT,
-        },
-        number: {
-            type: DataTypes.INTEGER,
-        },
-        type: {
-            type: DataTypes.STRING,
-        },
-        offset: {
-            type: DataTypes.INTEGER,
-        },
-        order: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-        },
-        createdAt: {
-            allowNull: false,
-            type: DataTypes.DATE,
-        },
-        updatedAt: {
-            allowNull: true,
-            type: DataTypes.DATE,
-        },
-        deletedAt: {
-            allowNull: true,
-            type: DataTypes.DATE,
-        },
-    }, {
-        sequelize,
-        modelName: 'Message',
-        tableName: 'messages',
-        paranoid: true,
-    })
+    )
     sequelizePaginate.paginate(Message)
 
     return Message

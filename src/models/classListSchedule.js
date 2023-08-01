@@ -44,6 +44,12 @@ module.exports = (sequelize, DataTypes) => {
         endDate: {
             type: DataTypes.DATE,
         },
+        messageRepetition: {
+            type: DataTypes.INTEGER,
+        },
+        sendMessageRandom: {
+            type: DataTypes.BOOLEAN,
+        },
         active: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
