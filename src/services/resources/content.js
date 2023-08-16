@@ -13,6 +13,7 @@ class ContentService extends ResourceService {
         if (role !== 'SuperAdmin') {
             query.AccountId = accountId
         }
+        // eslint-disable-next-line no-unused-expressions
         query.title && query.title !== '' ? query.title = { [Op.iLike]: `%${query.title}%` } : delete query.title
         const sorted = []
         Object.keys(sort).map((key) => sorted.push([key, sort[key]]))

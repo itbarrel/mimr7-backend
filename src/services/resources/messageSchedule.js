@@ -22,7 +22,7 @@ class MessageScheduleService extends ResourceService {
 
     async findall(messageRepetition, studenId, students) {
         if (studenId !== null) {
-            return models.MessageSchedule.findAll({
+            return this.model.findAll({
                 attributes: ['MessageId'],
                 where: { StudentId: studenId },
                 group: ['MessageId'],

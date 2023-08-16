@@ -18,6 +18,7 @@ class UserService extends ResourceService {
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
+        // eslint-disable-next-line no-unused-expressions
         query.userName && query.userName !== '' ? query.userName = { [Op.iLike]: `%${query.userName}%` } : delete query.userName
         const data = await super.all(query, offset, limit, sort)
         return data

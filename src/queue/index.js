@@ -1,3 +1,9 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable prefer-rest-params */
+/* eslint-disable import/no-extraneous-dependencies */
 const inherits = require('inherits')
 const { EventEmitter } = require('events')
 

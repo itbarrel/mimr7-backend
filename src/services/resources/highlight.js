@@ -13,7 +13,8 @@ class HighlightService extends ResourceService {
         if (role !== 'SuperAdmin') {
             query.AccountId = accountId
         }
-        query.content && query.content !== '' ? query.content = { [Op.iLike]: `%${query.content}%` } : delete query.content
+        // eslint-disable-next-line no-unused-expressions
+        (query.content && query.content !== '') ? query.content = { [Op.iLike]: `%${query.content}%` } : delete query.content
         const sorted = []
         Object.keys(sort).map((key) => sorted.push([key, sort[key]]))
 

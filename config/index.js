@@ -63,4 +63,6 @@ module.exports = {
         from: env.SMTP_SENDER_EMAIL || 'someone@yopmail.com',
     },
     frontenddomain: env.frontenddomain || 'localhost:4200',
+
+    OPEN_AI_KEY: env.OPEN_AI_KEY,
 }

@@ -8,6 +8,7 @@ class ContentLibraryService extends ResourceService {
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
+        // eslint-disable-next-line no-unused-expressions
         query.title && query.title !== '' ? query.title = { [Op.iLike]: `%${query.title}%` } : delete query.title
         const data = await super.all(query, offset, limit, sort)
         return data

@@ -8,6 +8,7 @@ class PlayerService extends ResourceService {
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
+        // eslint-disable-next-line no-unused-expressions
         query.firstName && query.firstName !== '' ? query.firstName = { [Op.iLike]: `%${query.firstName}%` } : delete query.firstName
         const data = await super.all(query, offset, limit, sort)
         return data

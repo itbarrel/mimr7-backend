@@ -104,6 +104,12 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
+            Account.hasMany(models.GptHighlight, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'cascade',
+            })
         }
     }
 

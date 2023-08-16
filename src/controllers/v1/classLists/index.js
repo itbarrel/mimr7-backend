@@ -60,23 +60,22 @@ const addStudent = async (req, res, next) => {
         if (!classList) {
             res.send({ message: 'Class Not Found' })
         } else {
-            const messages = await Promise.all(
-                students.map(async (studentId) => new Promise(async (resolve) => {
-                    const newStudent = await StudentService.findById(studentId)
-                    if (!newStudent) {
-                        resolve({ message: 'Student Not Found' })
-                    }
-                    const exitsStudent = await classList.hasStudent(newStudent)
-                    if (exitsStudent) {
-                        resolve({ message: 'Student Already added' })
-                    } else {
-                        await classList.addStudent(newStudent)
-                        resolve({
-                            message: `Student with id ${newStudent.id}  added succesfully`,
-                        })
-                    }
-                })),
-            )
+            // eslint-disable-next-line no-async-promise-executor
+            const messages = await Promise.all(students.map(async (studentId) => new Promise(async (resolve) => {
+                const newStudent = await StudentService.findById(studentId)
+                if (!newStudent) {
+                    resolve({ message: 'Student Not Found' })
+                }
+                const exitsStudent = await classList.hasStudent(newStudent)
+                if (exitsStudent) {
+                    resolve({ message: 'Student Already added' })
+                } else {
+                    await classList.addStudent(newStudent)
+                    resolve({
+                        message: `Student with id ${newStudent.id}  added succesfully`,
+                    })
+                }
+            })))
             res.send({ messages })
         }
     } catch (error) {
@@ -92,17 +91,16 @@ const removeStudent = async (req, res, next) => {
         if (!classList) {
             res.send({ message: 'Class Not Found' })
         } else {
-            const response = await Promise.all(
-                students.map(async (studentId) => new Promise(async (resolve) => {
-                    const findStudent = await StudentService.findById(studentId)
-                    if (!findStudent) {
-                        resolve({ message: 'Student Not Found' })
-                    } else {
-                        await classList.removeStudent(findStudent)
-                        resolve({ message: `Student with Id ${findStudent.id} Deleted Successfully` })
-                    }
-                })),
-            )
+            // eslint-disable-next-line no-async-promise-executor
+            const response = await Promise.all(students.map(async (studentId) => new Promise(async (resolve) => {
+                const findStudent = await StudentService.findById(studentId)
+                if (!findStudent) {
+                    resolve({ message: 'Student Not Found' })
+                } else {
+                    await classList.removeStudent(findStudent)
+                    resolve({ message: `Student with Id ${findStudent.id} Deleted Successfully` })
+                }
+            })))
             res.send({ response })
         }
     } catch (error) {
@@ -117,23 +115,22 @@ const addContent = async (req, res, next) => {
         if (!classList) {
             res.send({ message: 'Class Not Found' })
         } else {
-            const messages = await Promise.all(
-                contents.map(async (contentId) => new Promise(async (resolve) => {
-                    const newContent = await ContentService.findById(contentId)
-                    if (!newContent) {
-                        resolve({ message: 'Content Not Found' })
-                    }
-                    const exitsContent = await classList.hasContent(newContent)
-                    if (exitsContent) {
-                        resolve({ message: 'Content Already added' })
-                    } else {
-                        await classList.addContent(newContent)
-                        resolve({
-                            message: `Content with id ${newContent.id}  added succesfully`,
-                        })
-                    }
-                })),
-            )
+            // eslint-disable-next-line no-async-promise-executor
+            const messages = await Promise.all(contents.map(async (contentId) => new Promise(async (resolve) => {
+                const newContent = await ContentService.findById(contentId)
+                if (!newContent) {
+                    resolve({ message: 'Content Not Found' })
+                }
+                const exitsContent = await classList.hasContent(newContent)
+                if (exitsContent) {
+                    resolve({ message: 'Content Already added' })
+                } else {
+                    await classList.addContent(newContent)
+                    resolve({
+                        message: `Content with id ${newContent.id}  added succesfully`,
+                    })
+                }
+            })))
             res.send({ messages })
         }
     } catch (error) {
@@ -150,6 +147,7 @@ const removeContent = async (req, res, next) => {
             res.send({ message: 'Class Not Found' })
         } else {
             const response = await Promise.all(
+                // eslint-disable-next-line no-async-promise-executor
                 contents.map(async (contentId) => new Promise(async (resolve) => {
                     const findcontent = await ContentService.findById(contentId)
                     if (!findcontent) {
