@@ -27,6 +27,10 @@ class ResourceService {
         return this.model.create(obj)
     }
 
+    async bulkcreate(arr = []) {
+        return this.model.bulkCreate(arr)
+    }
+
     async findById(id) {
         return this.model.findByPk(id)
     }

@@ -10,6 +10,8 @@ router.get('/', validate(generalValidations.allResources), highlightsController.
 
 router.post('/', validate(highlightValidations.highlightObj), highlightsController.create)
 
+router.post('/bulkCreate', highlightsController.bulkCreate)
+
 router.get('/:id', validate(generalValidations.getResource), highlightsController.show)
 
 router.put('/:id', validate(generalValidations.getResource), highlightsController.update)

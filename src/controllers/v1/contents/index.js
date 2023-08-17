@@ -33,7 +33,7 @@ const all = async (req, res, next) => {
     }
 }
 
-const createa = async (req, res, next) => {
+const create = async (req, res, next) => {
     try {
         const { description, AccountId } = req.body
         const newContent = await ContentService.create(req.body)
@@ -65,7 +65,6 @@ const createa = async (req, res, next) => {
             success: true,
             data: newContent,
         })
-        // res.send({ content })
     } catch (error) {
         next(error)
     }
@@ -116,12 +115,48 @@ const getAllContent = async (req, res, next) => {
         next(error)
     }
 }
+const gptHighlights = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { description, AccountId } = await ContentService.findById(id)
+        const prompt = `make the hightlights of the given content ${description} without numbering the highlights ###`
+
+        const response = await openai.createCompletion({
+            model: 'text-davinci-003',
+            prompt: ` ${prompt}`,
+            max_tokens: 100,
+            temperature: 0,
+            top_p: 1.0,
+            frequency_penalty: 0.0,
+            presence_penalty: 0.0,
+        })
+        const hightlights = response.data.choices[0].text.trim().split('\n')
+        let group = await GptHighlightService.max('group')
+        // eslint-disable-next-line no-unused-expressions
+        Number.isNaN(group) ? group = 1 : group += 1
+        Promise.all(hightlights.map(async (highlight) => {
+            const gptObj = {
+                group,
+                content: highlight,
+                AccountId,
+                ContentId: id,
+            }
+            await GptHighlightService.create(gptObj)
+        }))
+        const allGptHighlights = await GptHighlightService.findByQuery({ ContentId: id }, false)
+
+        res.status(200).send({ message: 'created', gptHighlights: allGptHighlights })
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports = {
     all,
-    createa,
+    create,
     show,
     update,
     destroy,
     getAllContent,
+    gptHighlights,
 }

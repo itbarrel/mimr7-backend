@@ -12,6 +12,8 @@ router.get('/classList/:id', validate(generalValidations.allResources), Contents
 
 router.post('/', validate(contentValidations.contentObj), ContentsController.create)
 
+router.post('/:id/gptHighlights', ContentsController.gptHighlights)
+
 router.get('/:id', validate(generalValidations.getResource), ContentsController.show)
 
 router.put('/:id', validate(generalValidations.getResource), ContentsController.update)

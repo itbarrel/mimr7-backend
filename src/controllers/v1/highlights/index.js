@@ -50,7 +50,16 @@ const destroy = async (req, res, next) => {
         next(error)
     }
 }
+const bulkCreate = async (req, res, next) => {
+    try {
+        const { highlights } = req.body
 
+        const highlight = await HighlightService.bulkcreate(highlights)
+        res.send({ highlight })
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
-    all, create, show, update, destroy,
+    all, create, show, update, destroy, bulkCreate,
 }
