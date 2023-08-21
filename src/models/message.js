@@ -8,25 +8,23 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Message.belongsTo(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Message.belongsTo(models.Highlight, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Message.hasMany(models.MessageSchedule, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
         }
     }

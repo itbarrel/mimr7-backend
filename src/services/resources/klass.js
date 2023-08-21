@@ -3,9 +3,9 @@ const models = require('../../models')
 const storage = require('../../utils/cl-storage')
 const ResourceService = require('./resource')
 
-class ClassListService extends ResourceService {
+class KlassService extends ResourceService {
     constructor() {
-        super(models.ClassList)
+        super(models.Klass)
     }
 
     async all(query = {}, offset = 1, limit = 20, sort = {}) {
@@ -32,4 +32,4 @@ class ClassListService extends ResourceService {
     }
 }
 
-module.exports = new ClassListService()
+module.exports = new KlassService()

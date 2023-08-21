@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'DynamicForm',
-        tableName: 'dynamic_forms',
+        tableName: 'dynamicForms',
         paranoid: true,
     })
     sequelizePaginate.paginate(DynamicForm)

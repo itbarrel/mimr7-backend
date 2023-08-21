@@ -8,13 +8,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             GptHighlight.belongsTo(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
         }
     }

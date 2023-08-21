@@ -10,19 +10,16 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             MessageScheduleAnswer.belongsTo(models.Student, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             MessageScheduleAnswer.belongsTo(models.MessageSchedule, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
         }
     }

@@ -9,28 +9,28 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Student.belongsTo(models.Organization, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
-            Student.belongsToMany(models.ClassList, {
+            Student.belongsToMany(models.Klass, {
                 through: 'classList_students',
             })
             Student.hasMany(models.MessageSchedule, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
             Student.hasMany(models.MessageScheduleAnswer, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
         }
     }

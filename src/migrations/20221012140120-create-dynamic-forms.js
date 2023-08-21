@@ -1,6 +1,6 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('dynamic_forms', {
+        await queryInterface.createTable('dynamicForms', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -21,13 +21,14 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
@@ -44,6 +45,6 @@ module.exports = {
         })
     },
     down: async (queryInterface) => {
-        await queryInterface.dropTable('dynamic_forms')
+        await queryInterface.dropTable('dynamicForms')
     },
 }

@@ -8,18 +8,17 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Content.belongsTo(models.User, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Content.hasMany(models.ContentLibrary, {
                 foreignKey: 'parentId',
                 constraints: false,
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
                 scope: {
                     parentType: 'ContentLibrary',
                 },
@@ -28,28 +27,25 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
             Content.hasMany(models.GptHighlight, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
             Content.hasMany(models.Message, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
-            Content.hasMany(models.ClassListSchedule, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
-            })
-            Content.belongsToMany(models.ClassList, {
-                through: 'classList_contents',
+            Content.belongsToMany(models.Klass, {
+                through: 'klassContents',
             })
         }
     }

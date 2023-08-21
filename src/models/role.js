@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
             Role.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: true,
                 },
-                onDelete: 'cascade',
             })
         }
     }

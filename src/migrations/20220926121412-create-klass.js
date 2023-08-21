@@ -1,6 +1,6 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('classLists', {
+        await queryInterface.createTable('klasses', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -15,23 +15,25 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             OrganizationId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'organizations',
+                    model: {
+                        tableName: 'organizations',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
@@ -48,6 +50,6 @@ module.exports = {
         })
     },
     down: async (queryInterface) => {
-        await queryInterface.dropTable('classLists')
+        await queryInterface.dropTable('klasses')
     },
 }

@@ -1,31 +1,27 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('classList_users', {
-            id: {
-                allowNull: false,
-                primaryKey: true,
+        await queryInterface.createTable('klassContents', {
+            ContentId: {
                 type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDv4,
-            },
-            UserId: {
-                type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'users',
+                    model: {
+                        tableName: 'contents',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
-            },
-            ClassListId: {
-                type: Sequelize.UUID,
                 allowNull: false,
+            },
+            KlassId: {
+                type: Sequelize.UUID,
                 references: {
-                    model: 'classLists',
+                    model: {
+                        tableName: 'klasses',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
@@ -42,6 +38,6 @@ module.exports = {
         })
     },
     down: async (queryInterface) => {
-        await queryInterface.dropTable('classList_users')
+        await queryInterface.dropTable('klassContents')
     },
 }

@@ -10,18 +10,17 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Highlight.belongsTo(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Highlight.hasMany(models.HighlightLibrary, {
                 foreignKey: 'parentId',
                 constraints: false,
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
                 scope: {
                     parentType: 'highlightLibrary',
                 },
@@ -31,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
         }
     }

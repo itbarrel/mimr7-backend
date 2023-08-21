@@ -12,33 +12,32 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: true,
                 },
-                onDelete: 'cascade',
             })
             User.belongsTo(models.Organization, {
                 foreignKey: {
                     allowNull: true,
                 },
-                onDelete: 'cascade',
             })
             User.belongsTo(models.Role, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             User.hasMany(models.Content, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
             User.hasMany(models.Player, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
             })
-            User.belongsToMany(models.ClassList, { through: 'classList_users' })
+            User.belongsToMany(models.Klass, { through: 'klassUsers' })
         }
     }
     User.init({

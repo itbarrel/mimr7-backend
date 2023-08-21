@@ -17,13 +17,14 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: true,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: true,
             },
             default: {
                 type: Sequelize.BOOLEAN,

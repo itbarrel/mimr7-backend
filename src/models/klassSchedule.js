@@ -4,35 +4,26 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class ClassListSchedule extends Model {
+    class KlassSchedule extends Model {
         static associate(models) {
-            ClassListSchedule.belongsTo(models.Account, {
+            KlassSchedule.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
-            ClassListSchedule.belongsTo(models.Organization, {
+            KlassSchedule.belongsTo(models.Organization, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
-            ClassListSchedule.belongsTo(models.ClassList, {
+            KlassSchedule.belongsTo(models.Klass, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
-            })
-            ClassListSchedule.belongsTo(models.Content, {
-                foreignKey: {
-                    allowNull: false,
-                },
-                onDelete: 'cascade',
             })
         }
     }
-    ClassListSchedule.init({
+    KlassSchedule.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -68,10 +59,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: 'ClassListSchedule',
-        tableName: 'classList_Schedules',
+        modelName: 'KlassSchedule',
+        tableName: 'klassSchedules',
         paranoid: true,
     })
-    sequelizePaginate.paginate(ClassListSchedule)
-    return ClassListSchedule
+    sequelizePaginate.paginate(KlassSchedule)
+    return KlassSchedule
 }

@@ -4,9 +4,9 @@ const queue = require('../queue')
 
 const jobQueue = queue({ results: [] })
 const {
-    ClassListScheduleService,
+    KlassScheduleService,
     MessageService,
-    ClassListService,
+    KlassService,
     MessageScheduleService,
     ContentService,
 } = require('../services/resources')
@@ -44,7 +44,7 @@ cron.schedule(
                     message = null
                     return message
                 }
-                const classes = await ClassListScheduleService.findByQuery(
+                const classes = await KlassScheduleService.findByQuery(
                     { active: true },
                     false,
                 )
@@ -52,10 +52,10 @@ cron.schedule(
                 if (classes.length === 0) return
 
                 classes.map(async (klass) => {
-                    const { ClassListId } = klass
-                    const { Students, Contents } = await ClassListService.findByQuery(
+                    const { KlassId } = klass
+                    const { Students, Contents } = await KlassService.findByQuery(
                         {
-                            id: ClassListId,
+                            id: KlassId,
                         },
                         true,
                         ['id'],
@@ -146,7 +146,7 @@ cron.schedule(
     async () => {
         jobQueue.push(async () => {
             try {
-                const classes = await ClassListScheduleService.findByQuery(
+                const classes = await KlassScheduleService.findByQuery(
                     { active: true },
                     false,
                 )
@@ -164,7 +164,7 @@ cron.schedule(
                             && (KlassendMounth === currentMounth || KlassendMounth < currentMounth)
                         ) {
                             dataValues.active = false
-                            await ClassListScheduleService.update(dataValues, {
+                            await KlassScheduleService.update(dataValues, {
                                 id: dataValues.id,
                             })
                         }

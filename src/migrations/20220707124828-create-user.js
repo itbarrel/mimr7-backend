@@ -37,13 +37,14 @@ module.exports = {
             },
             RoleId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'roles',
+                    model: {
+                        tableName: 'roles',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             officePhone: {
                 type: Sequelize.STRING,
@@ -79,23 +80,25 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: true,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: true,
             },
             OrganizationId: {
                 type: Sequelize.UUID,
-                allowNull: true,
                 references: {
-                    model: 'organizations',
+                    model: {
+                        tableName: 'organizations',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: true,
             },
             createdAt: {
                 allowNull: false,

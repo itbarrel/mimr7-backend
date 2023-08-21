@@ -30,23 +30,25 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             UserId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'users',
+                    model: {
+                        tableName: 'users',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,

@@ -2,36 +2,40 @@ const { Model } = require('sequelize')
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-    class ClassList extends Model {
+    class Klass extends Model {
         static associate(models) {
-            ClassList.belongsTo(models.Account, {
+            Klass.belongsTo(models.Account, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
-            ClassList.belongsTo(models.Organization, {
+            Klass.belongsTo(models.Organization, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
-            ClassList.belongsToMany(models.User, { through: 'classList_users' })
-            ClassList.belongsToMany(models.Student, {
-                through: 'classList_students',
+            Klass.belongsToMany(models.User, { through: 'klassUsers' })
+            Klass.belongsToMany(models.Student, {
+                through: 'klassStudents',
             })
-            ClassList.belongsToMany(models.Content, {
-                through: 'classList_contents',
+            Klass.belongsToMany(models.Content, {
+                through: 'klassContents',
             })
-            ClassList.hasMany(models.ClassListSchedule, {
+            Klass.hasMany(models.ContentplanTemplate, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+            })
+            Klass.hasMany(models.KlassSchedule, {
+                foreignKey: {
+                    allowNull: false,
+                },
             })
         }
     }
-    ClassList.init(
+    Klass.init(
         {
             id: {
                 type: DataTypes.UUID,
@@ -59,11 +63,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'ClassList',
-            tableName: 'classLists',
+            modelName: 'Klass',
+            tableName: 'klasses',
             paranoid: true,
         },
     )
-    sequelizePaginate.paginate(ClassList)
-    return ClassList
+    sequelizePaginate.paginate(Klass)
+    return Klass
 }

@@ -4,7 +4,7 @@ const contentPlanTemplateObj = {
     body: Joi.object().keys({
         AccountId: Joi.string(),
         CollectionId: Joi.string(),
-        ClassListId: Joi.string(),
+        KlassId: Joi.string(),
         DynamicFormID: Joi.string(),
         status: Joi.string(),
         schedule_type: Joi.string(),

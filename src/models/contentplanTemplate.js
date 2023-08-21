@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 onDelete: 'cascade',
             })
-            ContentplanTemplate.belongsTo(models.ClassList, {
+            ContentplanTemplate.belongsTo(models.Klass, {
                 foreignKey: {
                     allowNull: false,
                 },
@@ -79,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'ContentplanTemplate',
-        tableName: 'contentPlan_templates',
+        tableName: 'contentPlanTemplates',
         paranoid: true,
     })
     sequelizePaginate.paginate(ContentplanTemplate)

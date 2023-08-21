@@ -1,51 +1,50 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('classList_Schedules', {
+        await queryInterface.createTable('klassSchedules', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDv4,
             },
-            ContentId: {
+            KlassId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'contents',
+                    model: {
+                        tableName: 'klasses',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
-            },
-            ClassListId: {
-                type: Sequelize.UUID,
                 allowNull: false,
-                references: {
-                    model: 'classLists',
-                    key: 'id',
-                },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             OrganizationId: {
                 type: Sequelize.UUID,
-                allowNull: true,
                 references: {
-                    model: 'organizations',
+                    model: {
+                        tableName: 'organizations',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
+            },
+            messageRepetition: {
+                type: Sequelize.INTEGER,
+            },
+            sendMessageRandom: {
+                type: Sequelize.BOOLEAN,
             },
             startDate: {
                 type: Sequelize.DATE,
@@ -72,6 +71,6 @@ module.exports = {
         })
     },
     down: async (queryInterface) => {
-        await queryInterface.dropTable('classList_Schedules')
+        await queryInterface.dropTable('klassSchedules')
     },
 }

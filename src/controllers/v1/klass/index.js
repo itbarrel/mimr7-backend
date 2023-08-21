@@ -1,4 +1,4 @@
-const { ClassListService, StudentService, ContentService } = require('../../../services/resources')
+const { KlassService, StudentService, ContentService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -6,7 +6,7 @@ const all = async (req, res, next) => {
             offset, limit, sort, ...query
         } = req.query
 
-        const { docs, pages, total } = await ClassListService.all(query, offset, limit, sort)
+        const { docs, pages, total } = await KlassService.all(query, offset, limit, sort)
 
         res.send({ data: docs, pages, total })
     } catch (error) {
@@ -16,8 +16,8 @@ const all = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
-        const classList = await ClassListService.create(req.body)
-        res.send({ classList })
+        const klass = await KlassService.create(req.body)
+        res.send({ klass })
     } catch (error) {
         next(error)
     }
@@ -26,8 +26,8 @@ const create = async (req, res, next) => {
 const show = async (req, res, next) => {
     try {
         const { id } = req.params
-        const { docs: classList } = await ClassListService.all({ id })
-        res.send({ classList })
+        const { docs: klass } = await KlassService.all({ id })
+        res.send({ klass })
     } catch (error) {
         next(error)
     }
@@ -36,8 +36,8 @@ const show = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         const { id } = req.params
-        const classList = await ClassListService.update(req.body, { id })
-        res.send(classList)
+        const klass = await KlassService.update(req.body, { id })
+        res.send(klass)
     } catch (error) {
         next(error)
     }
@@ -46,8 +46,8 @@ const update = async (req, res, next) => {
 const destroy = async (req, res, next) => {
     try {
         const { id } = req.params
-        await ClassListService.delete({ id })
-        res.send({ message: 'classList is deleted' })
+        await KlassService.delete({ id })
+        res.send({ message: 'klass is deleted' })
     } catch (error) {
         next(error)
     }
@@ -56,8 +56,8 @@ const addStudent = async (req, res, next) => {
     try {
         const { id } = req.params
         const { students } = req.body
-        const classList = await ClassListService.findById(id)
-        if (!classList) {
+        const klass = await KlassService.findById(id)
+        if (!klass) {
             res.send({ message: 'Class Not Found' })
         } else {
             // eslint-disable-next-line no-async-promise-executor
@@ -66,11 +66,11 @@ const addStudent = async (req, res, next) => {
                 if (!newStudent) {
                     resolve({ message: 'Student Not Found' })
                 }
-                const exitsStudent = await classList.hasStudent(newStudent)
+                const exitsStudent = await klass.hasStudent(newStudent)
                 if (exitsStudent) {
                     resolve({ message: 'Student Already added' })
                 } else {
-                    await classList.addStudent(newStudent)
+                    await klass.addStudent(newStudent)
                     resolve({
                         message: `Student with id ${newStudent.id}  added succesfully`,
                     })
@@ -87,8 +87,8 @@ const removeStudent = async (req, res, next) => {
         const { id } = req.params
         const { students } = req.body
 
-        const classList = await ClassListService.findById(id)
-        if (!classList) {
+        const klass = await KlassService.findById(id)
+        if (!klass) {
             res.send({ message: 'Class Not Found' })
         } else {
             // eslint-disable-next-line no-async-promise-executor
@@ -97,7 +97,7 @@ const removeStudent = async (req, res, next) => {
                 if (!findStudent) {
                     resolve({ message: 'Student Not Found' })
                 } else {
-                    await classList.removeStudent(findStudent)
+                    await klass.removeStudent(findStudent)
                     resolve({ message: `Student with Id ${findStudent.id} Deleted Successfully` })
                 }
             })))
@@ -111,8 +111,8 @@ const addContent = async (req, res, next) => {
     try {
         const { id } = req.params
         const { contents } = req.body
-        const classList = await ClassListService.findById(id)
-        if (!classList) {
+        const klass = await KlassService.findById(id)
+        if (!klass) {
             res.send({ message: 'Class Not Found' })
         } else {
             // eslint-disable-next-line no-async-promise-executor
@@ -121,11 +121,11 @@ const addContent = async (req, res, next) => {
                 if (!newContent) {
                     resolve({ message: 'Content Not Found' })
                 }
-                const exitsContent = await classList.hasContent(newContent)
+                const exitsContent = await klass.hasContent(newContent)
                 if (exitsContent) {
                     resolve({ message: 'Content Already added' })
                 } else {
-                    await classList.addContent(newContent)
+                    await klass.addContent(newContent)
                     resolve({
                         message: `Content with id ${newContent.id}  added succesfully`,
                     })
@@ -142,8 +142,8 @@ const removeContent = async (req, res, next) => {
         const { id } = req.params
         const { contents } = req.body
 
-        const classList = await ClassListService.findById(id)
-        if (!classList) {
+        const klass = await KlassService.findById(id)
+        if (!klass) {
             res.send({ message: 'Class Not Found' })
         } else {
             const response = await Promise.all(
@@ -153,7 +153,7 @@ const removeContent = async (req, res, next) => {
                     if (!findcontent) {
                         resolve({ message: 'Content Not Found' })
                     } else {
-                        await classList.removeContent(findcontent)
+                        await klass.removeContent(findcontent)
                         resolve({ message: `Content with Id ${findcontent.id} Deleted Successfully` })
                     }
                 })),

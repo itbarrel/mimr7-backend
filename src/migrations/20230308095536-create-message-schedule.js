@@ -7,39 +7,41 @@ module.exports = {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDv4,
             },
-            count: {
-                type: Sequelize.INTEGER,
-                defaultValue: 0,
+            hash: {
+                type: Sequelize.STRING,
             },
             MessageId: {
                 type: Sequelize.UUID,
-                allowNull: true,
                 references: {
-                    model: 'messages',
+                    model: {
+                        tableName: 'messages',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             StudentId: {
                 type: Sequelize.UUID,
-                allowNull: true,
                 references: {
-                    model: 'students',
+                    model: {
+                        tableName: 'students',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,

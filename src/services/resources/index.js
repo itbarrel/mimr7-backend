@@ -10,11 +10,11 @@ const HighlightLibraryService = require('./highlightLibrary')
 const PlayerService = require('./player')
 const LocationService = require('./location')
 const MessageService = require('./message')
-const ClassListService = require('./classList')
+const KlassService = require('./klass')
 const DynamicFormService = require('./dynamicForm')
 const ContentplanTemplateService = require('./contantPlanTemplate')
 const StudentService = require('./student')
-const ClassListScheduleService = require('./classListSchedule')
+const KlassScheduleService = require('./klassSchedule')
 const MessageScheduleService = require('./messageSchedule')
 const MessageScheduleAnswerService = require('./messageScheduleAnswer')
 const GptHighlightService = require('./gptHighlight')
@@ -32,11 +32,11 @@ module.exports = {
     PlayerService,
     LocationService,
     MessageService,
-    ClassListService,
+    KlassService,
     DynamicFormService,
     ContentplanTemplateService,
     StudentService,
-    ClassListScheduleService,
+    KlassScheduleService,
     MessageScheduleService,
     MessageScheduleAnswerService,
     GptHighlightService,

@@ -14,11 +14,11 @@ const highlightLibrariesRoute = require('./highlightLibraries')
 const playersRoute = require('./players')
 const locationsRoute = require('./locations')
 const messageRoute = require('./messages')
-const classListRoute = require('./classLists')
+const klassRoute = require('./klass')
 const dynamicFormRoute = require('./dynamicForms')
 const contentPlanTemplateRoute = require('./contentPlanTemplate')
 const studentRoute = require('./students')
-const classListScheduleRoute = require('./classListSchdules')
+const klassScheduleRoute = require('./klassSchdules')
 const messageScheduleRoute = require('./messageSchedule')
 const messageScheduleAnswerRoute = require('./messageScheduleAnswer')
 
@@ -37,11 +37,11 @@ const routes = [
     { path: '/players', routes: [verifyToken, playersRoute] },
     { path: '/locations', routes: [verifyToken, locationsRoute] },
     { path: '/messages', routes: [verifyToken, messageRoute] },
-    { path: '/classLists', routes: [verifyToken, classListRoute] },
+    { path: '/klasses', routes: [verifyToken, klassRoute] },
     { path: '/dynamicForms', routes: [verifyToken, dynamicFormRoute] },
     { path: '/contentPlanTemplates', routes: [verifyToken, contentPlanTemplateRoute] },
     { path: '/students', routes: [verifyToken, studentRoute] },
-    { path: '/classListSchedules', routes: [verifyToken, classListScheduleRoute] },
+    { path: '/klassSchedules', routes: [verifyToken, klassScheduleRoute] },
     { path: '/messageSchedules', routes: [messageScheduleRoute] },
     { path: '/messageScheduleAnswers', routes: [messageScheduleAnswerRoute] },
 

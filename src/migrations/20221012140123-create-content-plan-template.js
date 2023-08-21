@@ -1,6 +1,6 @@
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('contentPlan_templates', {
+        await queryInterface.createTable('contentPlanTemplates', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -35,43 +35,47 @@ module.exports = {
             },
             AccountId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'accounts',
+                    model: {
+                        tableName: 'accounts',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             ContentId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'contents',
+                    model: {
+                        tableName: 'contents',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
-            ClassListId: {
+            klassId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'classLists',
+                    model: {
+                        tableName: 'klasses',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             DynamicFormId: {
                 type: Sequelize.UUID,
-                allowNull: false,
                 references: {
-                    model: 'dynamic_forms',
+                    model: {
+                        tableName: 'dynamicForms',
+                        schema: 'public',
+                    },
                     key: 'id',
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
@@ -88,6 +92,6 @@ module.exports = {
         })
     },
     down: async (queryInterface) => {
-        await queryInterface.dropTable('contentPlan_templates')
+        await queryInterface.dropTable('contentPlanTemplates')
     },
 }

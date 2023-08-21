@@ -10,13 +10,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
             Player.belongsTo(models.User, {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'cascade',
             })
         }
     }
