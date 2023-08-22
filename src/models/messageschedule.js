@@ -36,10 +36,6 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        count: {
-            type: DataTypes.NUMBER,
-            defaultValue: 0,
-        },
         hash: {
             type: DataTypes.STRING,
         },

@@ -77,7 +77,6 @@ cron.schedule(
                                     const generatedhash = hashGenerator(32)
                                     const messageScheduleObj = {
                                         hash: generatedhash,
-                                        count: 1,
                                         MessageId: message.id,
                                         StudentId: student.id,
                                         AccountId: student.AccountId,
@@ -108,7 +107,6 @@ cron.schedule(
                                 const generatedhash = hashGenerator(32)
                                 const messageScheduleObj = {
                                     hash: generatedhash,
-                                    count: 1,
                                     MessageId: message.id,
                                     StudentId: student.id,
                                     AccountId: student.AccountId,
