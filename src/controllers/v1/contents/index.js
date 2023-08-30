@@ -10,7 +10,7 @@ const openai = new OpenAIApi(configuration)
 
 const {
     ContentService,
-    ClassListService,
+    KlassService,
     GptHighlightService,
 } = require('../../../services/resources')
 
@@ -102,9 +102,9 @@ const destroy = async (req, res, next) => {
 const getAllContent = async (req, res, next) => {
     try {
         const { id } = req.params
-        const classList = await ClassListService.findById(id)
+        const klass = await KlassService.findById(id)
 
-        const contents = await classList.getContents()
+        const contents = await klass.getContents()
         const Ids = contents.map((content) => content.id)
         const { docs: Contents } = await ContentService.all({
             id: { [Op.notIn]: Ids },

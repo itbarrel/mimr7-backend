@@ -8,7 +8,7 @@ const { generalValidations, contentValidations } = require('../../validations')
 
 router.get('/', validate(generalValidations.allResources), ContentsController.all)
 
-router.get('/classList/:id', validate(generalValidations.allResources), ContentsController.getAllContent)
+router.get('/klass/:id', validate(generalValidations.allResources), ContentsController.getAllContent)
 
 router.post('/', validate(contentValidations.contentObj), ContentsController.create)
 
