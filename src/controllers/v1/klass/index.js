@@ -16,6 +16,7 @@ const all = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
+        console.log(req.body)
         const klass = await KlassService.create(req.body)
         res.send({ klass })
     } catch (error) {
@@ -62,18 +63,20 @@ const addStudent = async (req, res, next) => {
         } else {
             // eslint-disable-next-line no-async-promise-executor
             const messages = await Promise.all(students.map(async (studentId) => new Promise(async (resolve) => {
-                const newStudent = await StudentService.findById(studentId)
-                if (!newStudent) {
+                const findStudent = await StudentService.findById(studentId)
+                if (!findStudent) {
                     resolve({ message: 'Student Not Found' })
                 }
-                const exitsStudent = await klass.hasStudent(newStudent)
+                const exitsStudent = await klass.hasStudent(findStudent)
                 if (exitsStudent) {
                     resolve({ message: 'Student Already added' })
                 } else {
-                    await klass.addStudent(newStudent)
-                    resolve({
-                        message: `Student with id ${newStudent.id}  added succesfully`,
-                    })
+                    const newStudent = await klass.addStudent(findStudent)
+                    if (newStudent) {
+                        resolve({
+                            message: `Student with id ${findStudent.id}  added succesfully`,
+                        })
+                    }
                 }
             })))
             res.send({ messages })
@@ -117,18 +120,20 @@ const addContent = async (req, res, next) => {
         } else {
             // eslint-disable-next-line no-async-promise-executor
             const messages = await Promise.all(contents.map(async (contentId) => new Promise(async (resolve) => {
-                const newContent = await ContentService.findById(contentId)
-                if (!newContent) {
+                const findContent = await ContentService.findById(contentId)
+                if (!findContent) {
                     resolve({ message: 'Content Not Found' })
                 }
-                const exitsContent = await klass.hasContent(newContent)
+                const exitsContent = await klass.hasContent(findContent)
                 if (exitsContent) {
                     resolve({ message: 'Content Already added' })
                 } else {
-                    await klass.addContent(newContent)
-                    resolve({
-                        message: `Content with id ${newContent.id}  added succesfully`,
-                    })
+                    const addAcontent = await klass.addContent(findContent)
+                    if (addAcontent) {
+                        resolve({
+                            message: `Content with id ${findContent.id}  added succesfully`,
+                        })
+                    }
                 }
             })))
             res.send({ messages })

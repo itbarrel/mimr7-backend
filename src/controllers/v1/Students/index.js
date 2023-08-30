@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { StudentService, ClassListService } = require('../../../services/resources')
+const { StudentService, KlassService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -17,9 +17,9 @@ const all = async (req, res, next) => {
 const getAllStudent = async (req, res, next) => {
     try {
         const { id } = req.params
-        const classList = await ClassListService.findById(id)
+        const klass = await KlassService.findById(id)
 
-        const students = await classList.getStudents()
+        const students = await klass.getStudents()
         const Ids = students.map((student) => student.id)
         const { docs: student } = await StudentService.all({ id: { [Op.notIn]: Ids } })
 

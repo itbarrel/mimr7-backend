@@ -10,7 +10,9 @@ const authLimiter = require('./src/middlewares/rateLimiter')
 const routes = require('./src/routes')
 const { errorConverter, errorHandler } = require('./src/middlewares/error')
 const ApiError = require('./src/utils/ApiError')
+// eslint-disable-next-line no-unused-vars
 require('./src/cron-jobs')
+
 const app = express()
 
 if (config.env !== 'test') {

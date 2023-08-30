@@ -8,7 +8,7 @@ const { generalValidations, studentValidations } = require('../../validations')
 
 router.get('/', validate(generalValidations.allResources), studentsController.all)
 
-router.get('/classList/:id', validate(generalValidations.allResources), studentsController.getAllStudent)
+router.get('/klass/:id', validate(generalValidations.allResources), studentsController.getAllStudent)
 
 router.post('/', validate(studentValidations.studentObj), studentsController.create)
 
