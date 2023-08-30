@@ -73,7 +73,7 @@ const create = async (req, res, next) => {
 const show = async (req, res, next) => {
     try {
         const { id } = req.params
-        const content = await ContentService.findById(id)
+        const content = await ContentService.findByQuery({ id }, true, 'all', ['GptHighlights'])
         res.send({ content })
     } catch (error) {
         next(error)

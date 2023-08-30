@@ -25,7 +25,7 @@ class ContentService extends ResourceService {
             order: sorted,
             include: [{
                 model: models.Highlight,
-            }],
+            }, { model: models.GptHighlight }],
             group: ['Content.id'],
         }
 
