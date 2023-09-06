@@ -10,6 +10,8 @@ router.get('/', validate(generalValidations.allResources), klassSchedulesControl
 
 router.post('/', klassSchedulesController.create)
 
+router.get('/complete', klassSchedulesController.complete)
+
 router.get('/:id', validate(generalValidations.getResource), klassSchedulesController.show)
 
 router.put('/:id', validate(generalValidations.getResource), klassSchedulesController.update)

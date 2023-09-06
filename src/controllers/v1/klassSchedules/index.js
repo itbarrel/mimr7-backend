@@ -51,6 +51,15 @@ const destroy = async (req, res, next) => {
     }
 }
 
+const complete = async (req, res, next) => {
+    try {
+        const { AccountId, OrganizationId } = req.query
+        const completeKlasses = await KlassScheduleService.findByQuery({ AccountId, OrganizationId, active: false }, false)
+        res.send(completeKlasses)
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
-    all, create, show, update, destroy,
+    all, create, show, update, destroy, complete,
 }
