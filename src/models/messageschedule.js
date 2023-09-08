@@ -1,6 +1,4 @@
-const {
-    Model,
-} = require('sequelize')
+const { Model } = require('sequelize')
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
@@ -28,35 +26,43 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             })
+            MessageSchedule.belongsTo(models.KlassSchedule, {
+                foreignKey: {
+                    allowNull: false,
+                },
+            })
         }
     }
-    MessageSchedule.init({
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
+    MessageSchedule.init(
+        {
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true,
+            },
+            hash: {
+                type: DataTypes.STRING,
+            },
+            createdAt: {
+                allowNull: false,
+                type: DataTypes.DATE,
+            },
+            updatedAt: {
+                allowNull: true,
+                type: DataTypes.DATE,
+            },
+            deletedAt: {
+                allowNull: true,
+                type: DataTypes.DATE,
+            },
         },
-        hash: {
-            type: DataTypes.STRING,
+        {
+            sequelize,
+            modelName: 'MessageSchedule',
+            tableName: 'messageSchedules',
+            paranoid: true,
         },
-        createdAt: {
-            allowNull: false,
-            type: DataTypes.DATE,
-        },
-        updatedAt: {
-            allowNull: true,
-            type: DataTypes.DATE,
-        },
-        deletedAt: {
-            allowNull: true,
-            type: DataTypes.DATE,
-        },
-    }, {
-        sequelize,
-        modelName: 'MessageSchedule',
-        tableName: 'messageSchedules',
-        paranoid: true,
-    })
+    )
     sequelizePaginate.paginate(MessageSchedule)
 
     return MessageSchedule
