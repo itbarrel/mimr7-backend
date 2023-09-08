@@ -1,58 +1,73 @@
 const { LocationService } = require('../../../services/resources')
 
-const all = async (req, res, next) => {
+const all = async (req, res) => {
     try {
         const {
             offset, limit, sort, ...query
         } = req.query
 
-        const { docs, pages, total } = await LocationService.all(query, offset, limit, sort)
+        const { docs, pages, total } = await LocationService.all(
+            query,
+            offset,
+            limit,
+            sort,
+        )
 
-        res.send({ data: docs, pages, total })
+        res.status(200).send({ data: docs, pages, total })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const create = async (req, res, next) => {
+const create = async (req, res) => {
     try {
         const location = await LocationService.create(req.body)
-        res.send({ location })
+        location
+            ? res.status(201).send({ location })
+            : res.status(400).send({ message: 'location not created' })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const show = async (req, res, next) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params
         const location = await LocationService.findById(id)
-        res.send({ location })
+        location
+            ? res.status(200).send({ location })
+            : res.status(400).send({ message: 'location not found' })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const update = async (req, res, next) => {
+const update = async (req, res) => {
     try {
         const { id } = req.params
         const location = await LocationService.update(req.body, { id })
-        res.send(location)
+        location
+            ? res.status(200).send({ location })
+            : res.status(400).send({ message: 'location is not updated' })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const destroy = async (req, res, next) => {
+const destroy = async (req, res) => {
     try {
         const { id } = req.params
         await LocationService.delete({ id })
-        res.send({ message: 'location is deleted' })
+        res.status(200).send({ message: 'location is deleted' })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
 module.exports = {
-    all, create, show, update, destroy,
+    all,
+    create,
+    show,
+    update,
+    destroy,
 }

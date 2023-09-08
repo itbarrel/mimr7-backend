@@ -1,61 +1,96 @@
 const { AccountService, RoleService } = require('../../../services/resources')
 
-const all = async (req, res, next) => {
+const all = async (req, res) => {
     try {
         const {
             offset, limit, sort, ...query
         } = req.query
-        const { docs, pages, total } = await AccountService.all(query, offset, limit, sort)
+        const { docs, pages, total } = await AccountService.all(
+            query,
+            offset,
+            limit,
+            sort,
+        )
 
-        res.send({ data: docs, pages, total })
+        res.status(200).send({ data: docs, pages, total })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const create = async (req, res, next) => {
+const create = async (req, res) => {
     try {
         const account = await AccountService.create(req.body)
-        res.send(account)
+        account
+            ? res.status(201).send({ account })
+            : res.status(400).send({ message: 'Account is not created' })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const show = async (req, res, next) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params
         const account = await AccountService.findById(id)
-        const role = await RoleService.findByQuery({ name: 'Admin', AccountId: account.id })
+        if (!account) {
+            res.status(400).send({ message: 'account not found' })
+        }
+        const role = await RoleService.findByQuery({
+            name: 'Admin',
+            AccountId: account.id,
+        })
+        if (!role) {
+            res.status(400).send({ message: 'role not found' })
+        }
         const admin = await account.getUsers({ where: { RoleId: role.id } })
-        res.send({ account, admin })
+        if (!admin) {
+            res.status(400).send({ message: 'admin not found' })
+        }
+        res.status(200).send({ account, admin })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const update = async (req, res, next) => {
+const update = async (req, res) => {
     try {
         const { id } = req.params
         const account = await AccountService.update(req.body, { id })
-        const role = await RoleService.findByQuery({ name: 'Admin', AccountId: account.id })
+        if (!account) {
+            res.status(400).send({ message: 'account not found' })
+        }
+        const role = await RoleService.findByQuery({
+            name: 'Admin',
+            AccountId: account.id,
+        })
+        if (!role) {
+            res.status(400).send({ message: 'role not found' })
+        }
         const admin = await account.getUsers({ where: { RoleId: role.id } })
-        res.send({ account, admin })
+        if (!admin) {
+            res.status(400).send({ message: 'admin not found' })
+        }
+        res.status(200).send({ account, admin })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
-const destroy = async (req, res, next) => {
+const destroy = async (req, res) => {
     try {
         const { id } = req.params
         await AccountService.delete({ id })
-        res.send({ message: 'Account is deleted' })
+        res.status(200).send({ message: 'Account is deleted' })
     } catch (error) {
-        next(error)
+        res.status(400).send(error)
     }
 }
 
 module.exports = {
-    all, create, show, update, destroy,
+    all,
+    create,
+    show,
+    update,
+    destroy,
 }
