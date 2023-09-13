@@ -53,8 +53,10 @@ const destroy = async (req, res, next) => {
 
 const complete = async (req, res, next) => {
     try {
-        const { AccountId, OrganizationId } = req.query
-        const completeKlasses = await KlassScheduleService.findByQuery({ AccountId, OrganizationId, active: false }, false)
+        const {
+            AccountId, OrganizationId, offset, limit,
+        } = req.query
+        const completeKlasses = await KlassScheduleService.all({ AccountId, OrganizationId, active: false }, offset, limit)
         res.send(completeKlasses)
     } catch (error) {
         next(error)
