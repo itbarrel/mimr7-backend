@@ -52,7 +52,7 @@ cron.schedule(
                 if (classes.length === 0) return
 
                 classes.map(async (klass) => {
-                    const { KlassId } = klass
+                    const { KlassId, id } = klass
                     const { Students, Contents } = await KlassService.findByQuery(
                         {
                             id: KlassId,
@@ -80,6 +80,7 @@ cron.schedule(
                                         MessageId: message.id,
                                         StudentId: student.id,
                                         AccountId: student.AccountId,
+                                        KlassScheduleId: id,
                                     }
 
                                     const messageSchedule = await MessageScheduleService.create(
@@ -110,6 +111,7 @@ cron.schedule(
                                     MessageId: message.id,
                                     StudentId: student.id,
                                     AccountId: student.AccountId,
+                                    KlassScheduleId: id,
                                 }
 
                                 const messageSchedule = await MessageScheduleService.create(
