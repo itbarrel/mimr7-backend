@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { StudentService, KlassService } = require('../../../services/resources')
+const { StudentService, KlassService, MessageScheduleService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -67,7 +67,18 @@ const destroy = async (req, res, next) => {
         next(error)
     }
 }
+const messageSchedule = async (req, res, next) => {
+    try {
+        const { StudentId, KlassScheduleId } = req.body
+        const messageSchedules = await MessageScheduleService.findByQuery({ StudentId, KlassScheduleId },
+            false, 'all', ['MessageScheduleAnswers'])
+
+        res.send(messageSchedules)
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports = {
-    all, create, show, update, destroy, getAllStudent,
+    all, create, show, update, destroy, getAllStudent, messageSchedule,
 }

@@ -12,6 +12,8 @@ router.post('/', klassSchedulesController.create)
 
 router.get('/complete', klassSchedulesController.complete)
 
+router.get('/:id/students', klassSchedulesController.students)
+
 router.get('/:id', validate(generalValidations.getResource), klassSchedulesController.show)
 
 router.put('/:id', validate(generalValidations.getResource), klassSchedulesController.update)

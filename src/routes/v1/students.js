@@ -10,6 +10,8 @@ router.get('/', validate(generalValidations.allResources), studentsController.al
 
 router.get('/klass/:id', validate(generalValidations.allResources), studentsController.getAllStudent)
 
+router.get('/messageSchedules', studentsController.messageSchedule)
+
 router.post('/', validate(studentValidations.studentObj), studentsController.create)
 
 router.get('/:id', validate(generalValidations.getResource), studentsController.show)

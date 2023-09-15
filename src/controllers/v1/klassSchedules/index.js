@@ -62,6 +62,16 @@ const complete = async (req, res, next) => {
         next(error)
     }
 }
+const students = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { Klass } = await KlassScheduleService.findByQuery({ id }, true, 'all', ['Klass'])
+        const klassStudents = await Klass.getStudents()
+        res.send(klassStudents)
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
-    all, create, show, update, destroy, complete,
+    all, create, show, update, destroy, complete, students,
 }
