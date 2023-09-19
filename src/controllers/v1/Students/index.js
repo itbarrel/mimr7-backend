@@ -71,9 +71,21 @@ const messageSchedule = async (req, res, next) => {
     try {
         const { StudentId, KlassScheduleId } = req.query
         const messageSchedules = await MessageScheduleService.findByQuery({ StudentId, KlassScheduleId },
-            false, 'all', ['MessageScheduleAnswers'])
+            false, 'all', ['MessageScheduleAnswer', 'Message'])
 
-        res.send(messageSchedules)
+        const data = messageSchedules.map((indexMessageSchedule) => {
+            const { Message, MessageScheduleAnswer } = indexMessageSchedule
+            const {
+                id, name, hint, solution,
+            } = Message
+
+            const { response } = MessageScheduleAnswer || ''
+            const obj = {
+                id, name, hint, solution, response: response || '',
+            }
+            return obj
+        })
+        res.send(data)
     } catch (error) {
         next(error)
     }

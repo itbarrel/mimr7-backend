@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
                     allowNull: false,
                 },
             })
-            MessageSchedule.hasMany(models.MessageScheduleAnswer, {
+            MessageSchedule.hasOne(models.MessageScheduleAnswer, {
                 foreignKey: {
                     allowNull: false,
                 },
