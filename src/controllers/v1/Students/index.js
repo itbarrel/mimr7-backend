@@ -69,7 +69,7 @@ const destroy = async (req, res, next) => {
 }
 const messageSchedule = async (req, res, next) => {
     try {
-        const { StudentId, KlassScheduleId } = req.body
+        const { StudentId, KlassScheduleId } = req.query
         const messageSchedules = await MessageScheduleService.findByQuery({ StudentId, KlassScheduleId },
             false, 'all', ['MessageScheduleAnswers'])
 
