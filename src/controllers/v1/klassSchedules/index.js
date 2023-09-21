@@ -67,7 +67,7 @@ const students = async (req, res, next) => {
         const { id } = req.params
         const { offset, limit } = req.query
         const { Klass } = await KlassScheduleService.findByQuery({ id }, true, 'all', ['Klass'])
-        const klassStudents = await Klass.getStudents({ limit: limit || 1, offset: offset || 0 })
+        const klassStudents = await Klass.getStudents({ limit, offset: offset - 1 })
         res.send(klassStudents)
     } catch (error) {
         next(error)
