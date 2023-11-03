@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
             })
             Student.belongsToMany(models.Klass, {
-                through: 'classList_students',
+                through: 'klassStudents',
             })
             Student.hasMany(models.MessageSchedule, {
                 foreignKey: {
