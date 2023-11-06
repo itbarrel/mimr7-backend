@@ -65,16 +65,20 @@ const complete = async (req, res, next) => {
 const students = async (req, res, next) => {
     try {
         const { id } = req.params
-        const { offset, limit } = req.query
+        let { offset, limit } = req.query
         const { Klass } = await KlassScheduleService.findByQuery({ id }, true, 'all', ['Klass'])
         const klassStudents = await Klass.getStudents()
+        const totalStudents = klassStudents.length;
+        const totalPages = Math.ceil(totalStudents / limit);
+
+        if (offset > totalPages) {
+            offset = totalPages; // Ensure that offset doesn't exceed total pages
+        }
+
         const startIndex = (offset - 1) * limit;
         const endIndex = offset * limit;
 
         const paginatedStudents = klassStudents.slice(startIndex, endIndex);
-
-        const totalStudents = klassStudents.length;
-        const totalPages = Math.ceil(totalStudents / limit);
 
         const response = {
             data: paginatedStudents,
