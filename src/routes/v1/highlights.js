@@ -12,6 +12,8 @@ router.post('/', validate(highlightValidations.highlightObj), highlightsControll
 
 router.post('/bulkCreate', highlightsController.bulkCreate)
 
+router.post('/:id/gptMessages', highlightsController.gptMessages)
+
 router.get('/:id', validate(generalValidations.getResource), highlightsController.show)
 
 router.put('/:id', validate(generalValidations.getResource), highlightsController.update)

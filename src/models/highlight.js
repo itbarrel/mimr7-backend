@@ -33,6 +33,13 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: 'SET NULL',
                 onUpdate: 'CASCADE',
             })
+            Highlight.hasMany(models.GptMessage, {
+                foreignKey: {
+                    allowNull: false,
+                },
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+            })
         }
     }
     Highlight.init({

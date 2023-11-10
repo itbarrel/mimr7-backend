@@ -18,6 +18,7 @@ const KlassScheduleService = require('./klassSchedule')
 const MessageScheduleService = require('./messageSchedule')
 const MessageScheduleAnswerService = require('./messageScheduleAnswer')
 const GptHighlightService = require('./gptHighlight')
+const GptMessageService = require('./gptMessage')
 
 module.exports = {
     ResourceService,
@@ -40,4 +41,5 @@ module.exports = {
     MessageScheduleService,
     MessageScheduleAnswerService,
     GptHighlightService,
+    GptMessageService,
 }

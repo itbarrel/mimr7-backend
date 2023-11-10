@@ -1,4 +1,12 @@
-const { HighlightService } = require('../../../services/resources')
+const { Configuration, OpenAIApi } = require('openai')
+const config = require('../../../../config')
+
+const configuration = new Configuration({
+    apiKey: config.OPEN_AI_KEY,
+})
+
+const openai = new OpenAIApi(configuration)
+const { HighlightService, GptMessageService } = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -7,6 +15,7 @@ const all = async (req, res, next) => {
         const { docs, pages, total } = await HighlightService.all(query, offset, limit)
 
         res.send({ data: docs, pages, total })
+        const { Op } = require('sequelize')
     } catch (error) {
         next(error)
     }
@@ -60,6 +69,43 @@ const bulkCreate = async (req, res, next) => {
         next(error)
     }
 }
+
+const gptMessages = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const { content, AccountId } = await HighlightService.findById(id)
+        const prompt = `make the question of given highlight ${content} without numbering the highlights ###`
+
+        const response = await openai.createCompletion({
+            model: 'text-davinci-003',
+            prompt: ` ${prompt}`,
+            max_tokens: 100,
+            temperature: 0,
+            top_p: 1.0,
+            frequency_penalty: 0.0,
+            presence_penalty: 0.0,
+        })
+        const messages = response.data.choices[0].text.trim().split('\n')
+        let group = await GptMessageService.max('group')
+        // eslint-disable-next-line no-unused-expressions
+        Number.isNaN(group) ? group = 1 : group += 1
+        Promise.all(messages.map(async (message) => {
+            const gptObj = {
+                group,
+                name: message,
+                AccountId,
+                HighlightId: id,
+            }
+            await GptMessageService.create(gptObj)
+        }))
+
+        const allGptMessages = await GptMessageService.findByQuery({ HighlightId: id },false)
+
+        res.status(200).send({ message: 'created', gptMessages: allGptMessages })
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
-    all, create, show, update, destroy, bulkCreate,
+    all, create, show, update, destroy, bulkCreate, gptMessages,
 }
