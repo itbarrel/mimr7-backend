@@ -15,6 +15,9 @@ module.exports = {
       name: {
         type: Sequelize.TEXT,
       },
+      solution: {
+        type: Sequelize.TEXT,
+      },
       AccountId: {
         type: Sequelize.UUID,
         references: {

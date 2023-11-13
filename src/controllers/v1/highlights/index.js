@@ -74,7 +74,7 @@ const gptMessages = async (req, res, next) => {
     try {
         const { id } = req.params
         const { content, AccountId } = await HighlightService.findById(id)
-        const prompt = `make the question of given highlight ${content} without numbering the highlights ###`
+        const prompt = `make the question and answer of given highlight ${content}  and return question on odd index and answer on even index ###`
 
         const response = await openai.createCompletion({
             model: 'text-davinci-003',
@@ -85,21 +85,37 @@ const gptMessages = async (req, res, next) => {
             frequency_penalty: 0.0,
             presence_penalty: 0.0,
         })
-        const messages = response.data.choices[0].text.trim().split('\n')
+        const data = response.data.choices[0].text.trim().split('\n')
+        const messages = [];
+
+        let currentObj = {};
+
+        for (const item of data) {
+            if (item.startsWith("Q")) {
+                // Start a new question-answer pair
+                currentObj = { question: item.substring(3).trim() };
+            } else if (item.startsWith("A")) {
+                // Add the answer to the current question-answer pair
+                currentObj.answer = item.substring(3).trim();
+                messages.push(currentObj);
+            }
+        }
+
         let group = await GptMessageService.max('group')
         // eslint-disable-next-line no-unused-expressions
         Number.isNaN(group) ? group = 1 : group += 1
         Promise.all(messages.map(async (message) => {
             const gptObj = {
                 group,
-                name: message,
+                name: message.question,
+                solution: message.answer,
                 AccountId,
                 HighlightId: id,
             }
             await GptMessageService.create(gptObj)
         }))
 
-        const allGptMessages = await GptMessageService.findByQuery({ HighlightId: id },false)
+        const allGptMessages = await GptMessageService.findByQuery({ HighlightId: id }, false)
 
         res.status(200).send({ message: 'created', gptMessages: allGptMessages })
     } catch (error) {

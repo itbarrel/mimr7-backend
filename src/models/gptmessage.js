@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.TEXT,
     },
+    solution: {
+      type: DataTypes.TEXT,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
