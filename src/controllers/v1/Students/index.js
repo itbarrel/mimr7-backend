@@ -1,5 +1,9 @@
 const { Op } = require('sequelize')
-const { StudentService, KlassService, MessageScheduleService } = require('../../../services/resources')
+const {
+    StudentService,
+    KlassService,
+    MessageScheduleService,
+} = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
@@ -7,7 +11,12 @@ const all = async (req, res, next) => {
             offset, limit, sort, ...query
         } = req.query
 
-        const { docs, pages, total } = await StudentService.all(query, offset, limit, sort)
+        const { docs, pages, total } = await StudentService.all(
+            query,
+            offset,
+            limit,
+            sort,
+        )
 
         res.send({ data: docs, pages, total })
     } catch (error) {
@@ -21,7 +30,9 @@ const getAllStudent = async (req, res, next) => {
 
         const students = await klass.getStudents()
         const Ids = students.map((student) => student.id)
-        const { docs: student } = await StudentService.all({ id: { [Op.notIn]: Ids } })
+        const { docs: student } = await StudentService.all({
+            id: { [Op.notIn]: Ids },
+        })
 
         res.send({ student })
     } catch (error) {
@@ -70,8 +81,12 @@ const destroy = async (req, res, next) => {
 const messageSchedule = async (req, res, next) => {
     try {
         const { StudentId, KlassScheduleId } = req.query
-        const messageSchedules = await MessageScheduleService.findByQuery({ StudentId, KlassScheduleId },
-            false, 'all', ['MessageScheduleAnswer', 'Message'])
+        const messageSchedules = await MessageScheduleService.findByQuery(
+            { StudentId, KlassScheduleId },
+            false,
+            'all',
+            ['MessageScheduleAnswer', 'Message'],
+        )
 
         const data = messageSchedules.map((indexMessageSchedule) => {
             const { Message, MessageScheduleAnswer } = indexMessageSchedule
@@ -81,7 +96,11 @@ const messageSchedule = async (req, res, next) => {
 
             const { response } = MessageScheduleAnswer || ''
             const obj = {
-                id, name, hint, solution, response: response || '',
+                id,
+                name,
+                hint,
+                solution,
+                response: response || '',
             }
             return obj
         })
@@ -92,5 +111,11 @@ const messageSchedule = async (req, res, next) => {
 }
 
 module.exports = {
-    all, create, show, update, destroy, getAllStudent, messageSchedule,
+    all,
+    create,
+    show,
+    update,
+    destroy,
+    getAllStudent,
+    messageSchedule,
 }

@@ -6,7 +6,12 @@ const all = async (req, res, next) => {
             offset, limit, sort, ...query
         } = req.query
 
-        const { docs, pages, total } = await MessageService.all(query, offset, limit, sort)
+        const { docs, pages, total } = await MessageService.all(
+            query,
+            offset,
+            limit,
+            sort,
+        )
 
         res.send({ data: docs, pages, total })
     } catch (error) {
@@ -42,6 +47,16 @@ const update = async (req, res, next) => {
         next(error)
     }
 }
+const bulkCreate = async (req, res, next) => {
+    try {
+        const { messages } = req.body
+
+        const resMessages = await MessageService.bulkcreate(messages)
+        res.send({ Messages: resMessages })
+    } catch (error) {
+        next(error)
+    }
+}
 
 const destroy = async (req, res, next) => {
     try {
@@ -54,5 +69,10 @@ const destroy = async (req, res, next) => {
 }
 
 module.exports = {
-    all, create, show, update, destroy,
+    all,
+    create,
+    show,
+    update,
+    destroy,
+    bulkCreate,
 }

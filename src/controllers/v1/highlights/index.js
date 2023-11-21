@@ -15,7 +15,6 @@ const all = async (req, res, next) => {
         const { docs, pages, total } = await HighlightService.all(query, offset, limit)
 
         res.send({ data: docs, pages, total })
-        const { Op } = require('sequelize')
     } catch (error) {
         next(error)
     }
@@ -74,7 +73,8 @@ const gptMessages = async (req, res, next) => {
     try {
         const { id } = req.params
         const { content, AccountId } = await HighlightService.findById(id)
-        const prompt = `make the question and answer of given highlight ${content}  and return question on odd index and answer on even index ###`
+        const prompt = `make the question and answer of given highlight ${content} 
+        and return question on odd index and answer on even index ###`
 
         const response = await openai.createCompletion({
             model: 'text-davinci-003',
@@ -86,18 +86,18 @@ const gptMessages = async (req, res, next) => {
             presence_penalty: 0.0,
         })
         const data = response.data.choices[0].text.trim().split('\n')
-        const messages = [];
+        const messages = []
 
-        let currentObj = {};
+        let currentObj = {}
 
         for (const item of data) {
-            if (item.startsWith("Q")) {
+            if (item.startsWith('Q')) {
                 // Start a new question-answer pair
-                currentObj = { question: item.substring(3).trim() };
-            } else if (item.startsWith("A")) {
+                currentObj = { question: item.substring(3).trim() }
+            } else if (item.startsWith('A')) {
                 // Add the answer to the current question-answer pair
-                currentObj.answer = item.substring(3).trim();
-                messages.push(currentObj);
+                currentObj.answer = item.substring(3).trim()
+                messages.push(currentObj)
             }
         }
 

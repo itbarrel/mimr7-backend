@@ -1,10 +1,17 @@
-const { KlassScheduleService } = require('../../../services/resources')
+const {
+    KlassScheduleService,
+    MessageScheduleService,
+} = require('../../../services/resources')
 
 const all = async (req, res, next) => {
     try {
         const { offset, limit, ...query } = req.query
 
-        const { docs, pages, total } = await KlassScheduleService.all(query, offset, limit)
+        const { docs, pages, total } = await KlassScheduleService.all(
+            query,
+            offset,
+            limit,
+        )
 
         res.send({ data: docs, pages, total })
     } catch (error) {
@@ -56,7 +63,11 @@ const complete = async (req, res, next) => {
         const {
             AccountId, OrganizationId, offset, limit,
         } = req.query
-        const completeKlasses = await KlassScheduleService.all({ AccountId, OrganizationId, active: false }, offset, limit)
+        const completeKlasses = await KlassScheduleService.all(
+            { AccountId, OrganizationId, active: false },
+            offset,
+            limit,
+        )
         res.send(completeKlasses)
     } catch (error) {
         next(error)
@@ -65,32 +76,71 @@ const complete = async (req, res, next) => {
 const students = async (req, res, next) => {
     try {
         const { id } = req.params
-        let { offset, limit } = req.query
-        const { Klass } = await KlassScheduleService.findByQuery({ id }, true, 'all', ['Klass'])
+        const { offset, limit } = req.query
+        const { Klass, id: KlassScheduleId } = await KlassScheduleService.findByQuery({ id }, true, 'all', ['Klass'])
         const klassStudents = await Klass.getStudents()
-        const totalStudents = klassStudents.length;
-        const totalPages = Math.ceil(totalStudents / limit);
+        const totalStudents = klassStudents.length
+        const totalPages = Math.ceil(totalStudents / limit)
 
         if (offset > totalPages) {
-            offset = totalPages; // Ensure that offset doesn't exceed total pages
+            offset = totalPages // Ensure that offset doesn't exceed total pages
         }
 
-        const startIndex = (offset - 1) * limit;
-        const endIndex = offset * limit;
+        const startIndex = (offset - 1) * limit
+        const endIndex = offset * limit
 
-        const paginatedStudents = klassStudents.slice(startIndex, endIndex);
+        const paginatedStudents = klassStudents.slice(startIndex, endIndex)
+
+        const studentData = await Promise.all(
+            paginatedStudents.map(async (student) => {
+                const { id, dataValues } = student
+                const messageSchedules = await MessageScheduleService.findByQuery(
+                    { StudentId: id, KlassScheduleId },
+                    false,
+                    'all',
+                    ['MessageScheduleAnswer', 'Message'],
+                )
+                const trueAnswers = []
+                const falseAnswers = []
+                const notAnswered = []
+
+                messageSchedules.map(async (message) => {
+                    const { MessageScheduleAnswer, Message, answerStatus } = message
+
+                    MessageScheduleAnswer === null
+                        ? notAnswered.push(Message)
+                        : answerStatus
+                            ? trueAnswers.push(Message)
+                            : falseAnswers.push(Message)
+                })
+
+                const obj = {
+                    ...dataValues,
+                    trueAnswers,
+                    falseAnswers,
+                    notAnswered,
+                }
+                return obj
+            }),
+        )
 
         const response = {
-            data: paginatedStudents,
             pages: totalPages,
+            data: studentData,
             total: totalStudents,
-        };
+        }
 
-        res.send(response);
+        res.send(response)
     } catch (error) {
         next(error)
     }
 }
 module.exports = {
-    all, create, show, update, destroy, complete, students,
+    all,
+    create,
+    show,
+    update,
+    destroy,
+    complete,
+    students,
 }

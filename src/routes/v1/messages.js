@@ -10,6 +10,8 @@ router.get('/', validate(generalValidations.allResources), MessagesController.al
 
 router.post('/', validate(messageValidations.messageObj), MessagesController.create)
 
+router.post('/bulkCreate', MessagesController.bulkCreate)
+
 router.get('/:id', validate(generalValidations.getResource), MessagesController.show)
 
 router.put('/:id', validate(generalValidations.getResource), MessagesController.update)

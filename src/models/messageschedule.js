@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: {
                     allowNull: false,
                 },
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
+                onDelete: 'RESTRICT',
+                onUpdate: 'RESTRICT',
             })
             MessageSchedule.belongsTo(models.KlassSchedule, {
                 foreignKey: {
@@ -42,6 +42,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             hash: {
                 type: DataTypes.STRING,
+            },
+            answerStatus: {
+                type: DataTypes.BOOLEAN,
             },
             createdAt: {
                 allowNull: false,
