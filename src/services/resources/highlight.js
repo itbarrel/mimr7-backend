@@ -25,7 +25,7 @@ class HighlightService extends ResourceService {
             order: sorted,
             include: [{
                 model: models.Message,
-            }],
+            }, { model: models.GptMessage }],
             group: ['Highlight.id'],
         }
 

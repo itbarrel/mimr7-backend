@@ -32,7 +32,7 @@ const create = async (req, res, next) => {
 const show = async (req, res, next) => {
     try {
         const { id } = req.params
-        const highlight = await HighlightService.findById(id)
+        const highlight = await HighlightService.findByQuery({ id }, true, 'all', ['Messages', 'GptMessages'])
         res.send({ highlight })
     } catch (error) {
         next(error)
