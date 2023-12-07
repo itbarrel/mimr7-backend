@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-const-assign */
 const {
     KlassScheduleService,
     MessageScheduleService,
@@ -107,6 +109,7 @@ const students = async (req, res, next) => {
                 messageSchedules.map(async (message) => {
                     const { MessageScheduleAnswer, Message, answerStatus } = message
 
+                    // eslint-disable-next-line no-unused-expressions, no-nested-ternary
                     MessageScheduleAnswer === null
                         ? notAnswered.push(Message)
                         : answerStatus

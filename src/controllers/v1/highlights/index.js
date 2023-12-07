@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const { Configuration, OpenAIApi } = require('openai')
 const config = require('../../../../config')
 
