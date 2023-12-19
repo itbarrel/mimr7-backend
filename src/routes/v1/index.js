@@ -42,8 +42,8 @@ const routes = [
     { path: '/contentPlanTemplates', routes: [verifyToken, contentPlanTemplateRoute] },
     { path: '/students', routes: [verifyToken, studentRoute] },
     { path: '/klassSchedules', routes: [verifyToken, klassScheduleRoute] },
-    { path: '/messageSchedules', routes: [messageScheduleRoute] },
-    { path: '/messageScheduleAnswers', routes: [messageScheduleAnswerRoute] },
+    { path: '/messageSchedules', routes: [verifyToken, messageScheduleRoute] },
+    { path: '/messageScheduleAnswers', routes: [verifyToken, messageScheduleAnswerRoute] },
 
 ]
 

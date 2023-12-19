@@ -7,6 +7,7 @@ const configuration = new Configuration({
 })
 
 const openai = new OpenAIApi(configuration)
+const personalAcountContent = require('./personalAccountContent')
 
 const {
     ContentService,
@@ -159,4 +160,5 @@ module.exports = {
     destroy,
     getAllContent,
     gptHighlights,
+    personalAcountContent,
 }

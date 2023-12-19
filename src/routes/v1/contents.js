@@ -20,4 +20,7 @@ router.put('/:id', validate(generalValidations.getResource), ContentsController.
 
 router.delete('/:id', validate(generalValidations.getResource), ContentsController.destroy)
 
+// personal Account Content
+router.post('/personalAcount', ContentsController.personalAcountContent)
+
 module.exports = router

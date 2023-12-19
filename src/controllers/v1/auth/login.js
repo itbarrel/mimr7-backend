@@ -13,16 +13,22 @@ const login = async (req, res, next) => {
             const verification = await user.validatePassword(credentials.password)
             if (verification) {
                 const role = await user.getRole()
-
+                const { type } = await user.getAccount()
                 if (role) {
                     const decodeObj = {
-                        id: user.id, email: user.email, userName: user.userName, accountId: user.AccountId, role: role.name,
+                        id: user.id,
+                        email: user.email,
+                        userName: user.userName,
+                        accountId: user.AccountId,
+                        role: role.name,
+                        accountType: type,
                     }
 
                     const jwtToken = jwt.sign(decodeObj, config.jwt.secret, { expiresIn: '2h' })
                     res.send({
                         message: 'Welcome',
                         token: jwtToken,
+                        AccountType: type,
                         Role: role.name,
                         user,
                     })

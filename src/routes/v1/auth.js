@@ -8,5 +8,6 @@ router.post('/login', authController.login)
 router.post('/forgetpassword', authController.forgetpassword)
 router.post('/resetpassword', authController.resetPassword)
 router.post('/changepassword', verifyToken, authController.changepassword)
+router.post('/signUp', authController.signUp)
 
 module.exports = router

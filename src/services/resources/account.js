@@ -39,6 +39,15 @@ class AccountService extends ResourceService {
             return error
         }
     }
+
+    async personalAccountCreate(obj = {}) {
+        try {
+            const account = await this.model.create(obj)
+            return account
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 module.exports = new AccountService()
